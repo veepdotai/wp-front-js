@@ -12,12 +12,10 @@ image.onclick = function() {
     let xbtn = document.getElementsByClassName("close")[0]; // bouton de fermeture
     
     affichageImages(0);
-    //modal.style.display = "block";
 
     // Fermeture du modal lors de l'appui sur la croix
     xbtn.onclick = function() {
         modal.remove();
-        //modal.style.display = "none";
     }
 
     // Fermeture du modal lors de l'appui en dehors de la fenêtre
@@ -25,7 +23,6 @@ image.onclick = function() {
         let modal = document.getElementById("myModal");
         if (event.target == modal) {
             modal.remove();
-            //modal.style.display = "none";
         }
     }
 }
