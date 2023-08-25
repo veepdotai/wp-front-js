@@ -11,7 +11,7 @@ image.onclick = function() {
 
     let xbtn = document.getElementsByClassName("close")[0]; // bouton de fermeture
     
-    affichageImages(0);
+    affichageImages();
 
     // Fermeture du modal lors de l'appui sur la croix
     xbtn.onclick = function() {
@@ -41,25 +41,28 @@ const urls = [url0, url1, url2];
 // Fonction qui change l'image en fonction du paramètre
 function changerImage(indiceUrl){
     image.src=urls[indiceUrl];
+
 }
 
 // Fonction qui affichera à terme les images dans le modal et créra les boutons appropriés
-function affichageImages(imgActuelle){
+function affichageImages(){
     let img;
-    for (let i = 0; i<urls.length; i++){
-        if (i == imgActuelle){
-            let imgAct = document.getElementById("image-actuelle");
-            imgAct.src=urls[i];
-            imgAct.onclick = function(){changerImage(i);}
-        }else{
-            img = document.createElement("img");
 
-            img.src = urls[i];
-            img.onclick = function(){changerImage(i);}
-            img.style = "height:100px; cursor:pointer";
+    // Affiche l'image originelle de l'article à part 
+    let imgAct = document.getElementById("image-originelle");
+    imgAct.src=urls[0];
+    imgAct.onclick = function(){changerImage(0);}
 
-            document.getElementById("footer").appendChild(img);
-        }
+    // Affiche dans le footer du modal les autres images disponibless
+    for (let i = 1; i<urls.length; i++){
+    
+        img = document.createElement("img");
+
+        img.src = urls[i];
+        img.onclick = function(){changerImage(i);}
+        img.style = "height:100px; cursor:pointer";
+
+        document.getElementById("footer").appendChild(img);
     }
 }
 
@@ -92,10 +95,10 @@ function createModal(idCible){
     body.className = "modal-body";
     
     let titleB = document.createElement("H3");
-    let textNode2 = document.createTextNode("Image actuelle :");
+    let textNode2 = document.createTextNode("Image originelle :");
     
     let imgAct = document.createElement("img");
-    imgAct.id = "image-actuelle";
+    imgAct.id = "image-originelle";
     imgAct.style = "height: 100px";
 
     titleB.appendChild(textNode2);
