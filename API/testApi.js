@@ -3,9 +3,12 @@ const searchQuery = 'Paysage'; // Remplace par le mot-clé de ton choix
 const apiUrl = `https://api.pexels.com/v1/search?query=${searchQuery}&per_page=10`; // Modifier le nombre d'images si nécessaire
 const jsonTest = './test.json';
 
-pexelsRequest();
+// pexelsRequest();
 
-function pexelsRequest() {
+let photos = extractionPhotos(jsonTest);
+// ajoutPhotos(photos);
+
+async function pexelsRequest() {
     fetch(apiUrl, {
         headers: {
             Authorization: apiKey,
@@ -23,4 +26,17 @@ function pexelsRequest() {
         });
     })
     .catch(error => console.error('Erreur :', error));
+}
+
+function extractionPhotos(fichier){
+    fetch(fichier)
+    .then(response => {return response.json;});
+}
+
+function ajoutPhotos(photos){
+    photos.forEach(photo => {
+        const imgElement = document.createElement('img');
+        imgElement.src = photo.url; 
+        imageContainer.appendChild(imgElement);
+    })
 }

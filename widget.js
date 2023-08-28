@@ -129,37 +129,3 @@ function createModal(idCible){
 
     return modal;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
