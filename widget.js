@@ -69,7 +69,7 @@ function affichageImages(){
 /*
  * Construit le modal / la fenêtre de sélection d'image et la renvoie
  */
-function createModal(idCible){
+function createModal(idCible){ // L'id est pour l'instant inutile
     
     // Header :
 
@@ -94,6 +94,11 @@ function createModal(idCible){
     let body = document.createElement("div");
     body.className = "modal-body";
     
+    // TODO : Bar de recherche
+    /*
+    
+    */
+
     let titleB = document.createElement("H3");
     let textNode2 = document.createTextNode("Image originelle :");
     
