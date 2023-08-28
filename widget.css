@@ -18,10 +18,11 @@ img {
 /* Contenu du modal */
 .modal-content {
     position: relative;
-    background-color: #fefefe;
+    background-color: #5cb85c;
     margin: auto;
     padding: 0;
     border: 1px solid #888;
+    border-radius: 10px;
     width: 80%;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
 }
@@ -29,19 +30,18 @@ img {
 /* Entête du modal */
 .modal-header {
     padding: 2px 16px;
-    background-color: #5cb85c;
     color: white;
 }
 
 /* Corps du modal */
 .modal-body {
     padding: 2px 16px;
+    background-color: #fefefe;
 }
 
 /* Bas du modal */
 .modal-footer {
     padding: 14px 16px;
-    background-color: #5cb85c;
     color: white;
 }
 

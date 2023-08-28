@@ -29,6 +29,7 @@ image.onclick = function() {
 
 /* PARTIE IMAGES */
 
+// Au chargement de la page initialise l'image avec la première de l'array "photos"
 document.body.onload = function(){
     changerImage(0);
 }
