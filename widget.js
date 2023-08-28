@@ -29,19 +29,13 @@ image.onclick = function() {
 
 /* PARTIE IMAGES */
 
-// URLs
-// TODO : remplacer par des images prises via l'api des banques d'images
-const url0 = "https://cdn.pixabay.com/photo/2016/05/24/16/48/mountains-1412683_1280.png";
-const url1 = "https://cdn.pixabay.com/photo/2018/01/31/16/12/beach-3121393_1280.png";
-const url2 = "https://images.pexels.com/photos/566496/pexels-photo-566496.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2";
-
-// Tableau contenant les urls
-const urls = [url0, url1, url2];
+document.body.onload = function(){
+    changerImage(0);
+}
 
 // Fonction qui change l'image en fonction du paramètre
-function changerImage(indiceUrl){
-    image.src=urls[indiceUrl];
-
+function changerImage(indicePhoto){
+    image.src = photos[indicePhoto].src.landscape;
 }
 
 // Fonction qui affichera à terme les images dans le modal et créra les boutons appropriés
@@ -50,15 +44,15 @@ function affichageImages(){
 
     // Affiche l'image originelle de l'article à part 
     let imgAct = document.getElementById("image-originelle");
-    imgAct.src=urls[0];
+    imgAct.src = photos[0].src.landscape;
     imgAct.onclick = function(){changerImage(0);}
 
     // Affiche dans le footer du modal les autres images disponibless
-    for (let i = 1; i<urls.length; i++){
+    for (let i = 1; i<photos.length; i++){
     
         img = document.createElement("img");
 
-        img.src = urls[i];
+        img.src = photos[i].src.landscape;
         img.onclick = function(){changerImage(i);}
         img.style = "height:100px; cursor:pointer";
 
