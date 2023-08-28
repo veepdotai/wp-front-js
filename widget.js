@@ -11,63 +11,59 @@ image.onclick = function() {
 
     let xbtn = document.getElementsByClassName("close")[0]; // bouton de fermeture
     
-    affichageImages(0);
-    modal.style.display = "block";
+    affichageImages();
 
     // Fermeture du modal lors de l'appui sur la croix
     xbtn.onclick = function() {
-        modal.style.display = "none";
+        modal.remove();
     }
 
     // Fermeture du modal lors de l'appui en dehors de la fenêtre
     window.onclick = function(event) {
         let modal = document.getElementById("myModal");
         if (event.target == modal) {
-            modal.style.display = "none";
+            modal.remove();
         }
     }
 }
 
 /* PARTIE IMAGES */
 
-// URLs
-// TODO : remplacer par des images prises via l'api des banques d'images
-const url0 = "https://cdn.pixabay.com/photo/2016/05/24/16/48/mountains-1412683_1280.png";
-const url1 = "https://cdn.pixabay.com/photo/2018/01/31/16/12/beach-3121393_1280.png";
-const url2 = "https://images.pexels.com/photos/566496/pexels-photo-566496.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2";
-
-// Tableau contenant les urls
-const urls = [url0, url1, url2];
+document.body.onload = function(){
+    changerImage(0);
+}
 
 // Fonction qui change l'image en fonction du paramètre
-function changerImage(indiceUrl){
-    image.src=urls[indiceUrl];
+function changerImage(indicePhoto){
+    image.src = photos[indicePhoto].src.landscape;
 }
 
 // Fonction qui affichera à terme les images dans le modal et créra les boutons appropriés
-function affichageImages(imgActuelle){
+function affichageImages(){
     let img;
-    for (let i = 0; i<urls.length; i++){
-        if (i == imgActuelle){
-            let imgAct = document.getElementById("image-actuelle");
-            imgAct.src=urls[i];
-            imgAct.onclick = function(){changerImage(i);}
-        }else{
-            img = document.createElement("img");
 
-            img.src = urls[i];
-            img.onclick = function(){changerImage(i);}
-            img.style = "height:100px; cursor:pointer";
+    // Affiche l'image originelle de l'article à part 
+    let imgAct = document.getElementById("image-originelle");
+    imgAct.src = photos[0].src.landscape;
+    imgAct.onclick = function(){changerImage(0);}
 
-            document.getElementById("footer").appendChild(img);
-        }
+    // Affiche dans le footer du modal les autres images disponibless
+    for (let i = 1; i<photos.length; i++){
+    
+        img = document.createElement("img");
+
+        img.src = photos[i].src.landscape;
+        img.onclick = function(){changerImage(i);}
+        img.style = "height:100px; cursor:pointer";
+
+        document.getElementById("footer").appendChild(img);
     }
 }
 
 /*
  * Construit le modal / la fenêtre de sélection d'image et la renvoie
  */
-function createModal(idCible){
+function createModal(idCible){ // L'id est pour l'instant inutile
     
     // Header :
 
@@ -92,11 +88,16 @@ function createModal(idCible){
     let body = document.createElement("div");
     body.className = "modal-body";
     
+    // TODO : Bar de recherche
+    /*
+    
+    */
+
     let titleB = document.createElement("H3");
-    let textNode2 = document.createTextNode("Image actuelle :");
+    let textNode2 = document.createTextNode("Image originelle :");
     
     let imgAct = document.createElement("img");
-    imgAct.id = "image-actuelle";
+    imgAct.id = "image-originelle";
     imgAct.style = "height: 100px";
 
     titleB.appendChild(textNode2);
@@ -127,37 +128,3 @@ function createModal(idCible){
 
     return modal;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
