@@ -2,6 +2,11 @@
 
 img {
     cursor: pointer;
+    height: 352px;
+}
+
+.modal-img {
+    height: 100px;
 }
 
 .modal {

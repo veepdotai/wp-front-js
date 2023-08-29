@@ -3,13 +3,16 @@
     <head>
         <meta charset="utf-8">
         <link rel="stylesheet" href="modal.css">
+        <script src="./jquery-3.7.1.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
     </head>
 
     <body>
+
         <div id="myModal" class="modal">
             <div class="modal-content">
                 <div class="modal-header">
-                    <span class="close">x</span>
+                    <a href="#" rel="modal-close">Close</a> 
                     <h2>Sélection de l'image</h2>
                 </div>
 
@@ -23,10 +26,15 @@
             </div>
         </div>
 
-        <script src="./jquery-3.7.1.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+        <p><a href="#myModal" rel="modal:open">Open modal</a></p>
+
         <script>
-            $()
+            $('#myModal').modal({
+                escapeClose: true,
+                clickClose: true,
+                showClose: true,
+                closeClass: 'icon-remove'
+            });
         </script>
 
     </body>

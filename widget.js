@@ -27,6 +27,7 @@ image.onclick = function() {
     }
 }
 
+
 /* PARTIE IMAGES */
 
 // Au chargement de la page initialise l'image avec la première de l'array "photos"
@@ -34,12 +35,14 @@ document.body.onload = function(){
     changerImage(0);
 }
 
+
 // Fonction qui change l'image en fonction du paramètre
 function changerImage(indicePhoto){
     image.src = photos[indicePhoto].src.landscape;
 }
 
-// Fonction qui affichera à terme les images dans le modal et créra les boutons appropriés
+
+// Fonction qui affiche les images dans le modal et créé les boutons appropriés
 function affichageImages(){
     let img;
 
@@ -55,11 +58,12 @@ function affichageImages(){
 
         img.src = photos[i].src.landscape;
         img.onclick = function(){changerImage(i);}
-        img.style = "height:100px; cursor:pointer";
+        img.className = "modal-img"
 
-        document.getElementById("footer").appendChild(img);
+       $(".modal-footer").append(img);
     }
 }
+
 
 /*
  * Construit le modal / la fenêtre de sélection d'image et la renvoie
@@ -99,7 +103,7 @@ function createModal(idCible){ // L'id est pour l'instant inutile
     
     let imgAct = document.createElement("img");
     imgAct.id = "image-originelle";
-    imgAct.style = "height: 100px";
+    imgAct.className = "modal-img"
 
     titleB.appendChild(textNode2);
 
@@ -110,7 +114,6 @@ function createModal(idCible){ // L'id est pour l'instant inutile
 
     let footer = document.createElement("div");
     footer.className = "modal-footer";
-    footer.id = "footer";
 
     // Modal :
 
