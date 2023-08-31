@@ -1,36 +1,40 @@
 $(document).ready(function(){
 
-    elements = document.getElementsByClassName("widget");
+    initImages();
+    initModaux();
+    
 
-    let id;
-    let modal;
 
-    for(let i=0; i<elements.length; i++){
-        id = randomId();
-        elements[i].id = id;
-
-        modal = createModal(id);
-
-        $("body").after(modal);
-    };
+    /********************************************************************
+     *                      Evenements
+     ********************************************************************
+     */
 
     $(".widget").click(function(){
         let id = $(this).attr("id");
-        let src = $(this).attr("src");
-        let str = `<img src=${src} class="modal-img">`;
-       
-        $("#modal-" + id + " .modal-body").append(str);
+        //let src = $(this).attr("src");
+
+        //let str = `<img src=${src} class="modal-img">`;
+
+        //$("#modal-" + id + " .modal-body").append(str);
 
         $("#modal-" + id).modal({
             clickClose: true,
             showClose: false
         });
     });
+    
 
-    /*
-    * Construit le modal / la fenêtre de sélection d'image et la renvoie
-    */
-    function createModal(idCible){ // L'id est pour l'instant inutile
+
+    /********************************************************************
+     *                      Fonctions
+     ********************************************************************
+     */
+    
+    /**
+     * Construit le modal / la fenêtre de sélection d'image et la renvoie
+     */
+    function createModal(idCible){
         // Header :
 
         let header = document.createElement("div");
@@ -78,5 +82,39 @@ $(document).ready(function(){
         modal.appendChild(footer);
 
         return modal;
+    }
+
+    /**
+     * Initialise les différents modaux
+     */
+    function initModaux(){
+        elements = document.getElementsByClassName("widget");
+
+        let id;
+        let modal;
+        let img;
+        let node;
+        for(let i=0; i<elements.length; i++){
+            id = randomId();
+            elements[i].id = id;
+
+            modal = createModal(id);
+
+            img = `<img src=${elements[i].src} class="modal-img">`;
+
+            $("body").after(modal);
+
+            $("#modal-" + id + " .modal-body").append(img);
+        };
+    }
+
+    /**
+     * Initialise les images avec des images du flux JSON
+     */
+    function initImages() {
+        let images = document.getElementsByClassName("widget");
+        for (let i=0; i<images.length; i++) {
+            images[i].src = photos[i].src.landscape;
+        }
     }
 });
