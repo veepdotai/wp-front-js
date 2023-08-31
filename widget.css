@@ -1,70 +1,59 @@
-/* Fond du modal */
-
 img {
-    cursor: pointer;
-    height: 352px;
-}
+                height: 352px;
+            }
+            
+            .widget {
+                cursor: pointer;
+            }
 
-.modal-img {
-    height: 100px;
-}
+            .modal {
+                position: relative;
+                background-color: #5cb85c;
+                padding: 0;
+                border: 1px solid #888;
+                border-radius: 10px;
+                width: 80%;
+                box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+            }
 
-.modal {
-    position: fixed;
-    z-index: 1;
-    padding-top: 100px;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.4);
-}
+            .modal-header {
+                color: white;
+                padding: 2px 16px;
+            }
 
-/* Contenu du modal */
-.modal-content {
-    position: relative;
-    background-color: #5cb85c;
-    margin: auto;
-    padding: 0;
-    border: 1px solid #888;
-    border-radius: 10px;
-    width: 80%;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
-}
+            .modal-body {
+                background-color: white;
+                padding: 2px 16px;
+            }
 
-/* Entête du modal */
-.modal-header {
-    padding: 2px 16px;
-    color: white;
-}
+            .modal-footer {
+                padding: 14px 16px;
+            }
 
-/* Corps du modal */
-.modal-body {
-    padding: 2px 16px;
-    background-color: #fefefe;
-}
+            .modal-img {
+                height: 100px;
+                cursor: pointer;
+            }
 
-/* Bas du modal */
-.modal-footer {
-    padding: 14px 16px;
-    color: white;
-}
+            .blocker {
+                position: fixed;
+                z-index: 1;
+                padding-top: 100px;
+                padding-left: 10%;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.3);
+            }
 
-/* Bouton de fermeture */
-.close {
-    color: white;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-    background-color: black;
-    height: 30px;
-    width: 30px;
-    border-radius: 15px;
-    text-align: center;
-}
-
-/* Bouton de fermeture quand souris dessus */
-.close:hover{
-    color: #000;
-    cursor: pointer;
-}
+            .close {
+                cursor: pointer;
+                color: white;
+                float: right;
+                height: 30px;
+                width: 30px;
+                background-color: black;
+                text-align: center;
+                border-radius: 15px;
+            }
