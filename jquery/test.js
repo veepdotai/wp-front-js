@@ -1,13 +1,27 @@
 $(document).ready(function(){
 
-    let modal = createModal();
-    $(".widget").after(modal);
+    elements = document.getElementsByClassName("widget");
+
+    let id;
+    let modal;
+
+    for(let i=0; i<elements.length; i++){
+        id = randomId();
+        elements[i].id = id;
+
+        modal = createModal(id);
+
+        $("body").after(modal);
+    };
 
     $(".widget").click(function(){
+        let id = $(this).attr("id");
         let src = $(this).attr("src");
         let str = `<img src=${src} class="modal-img">`;
-        $(this).next().append(str);
-        $(this).next().modal({
+       
+        $("#modal-" + id + " .modal-body").append(str);
+
+        $("#modal-" + id).modal({
             clickClose: true,
             showClose: false
         });
@@ -16,8 +30,7 @@ $(document).ready(function(){
     /*
     * Construit le modal / la fenêtre de sélection d'image et la renvoie
     */
-    function createModal(){ // L'id est pour l'instant inutile
-        
+    function createModal(idCible){ // L'id est pour l'instant inutile
         // Header :
 
         let header = document.createElement("div");
@@ -57,7 +70,7 @@ $(document).ready(function(){
         // Modal :
         
         let modal = document.createElement("div");
-        modal.id = "demo";
+        modal.id = "modal-" + idCible;
         modal.style ="display:none";
         
         modal.appendChild(header);
