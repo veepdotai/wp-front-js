@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-    initImages();
+    initImagesArticle();
     initModaux();
     
 
@@ -38,8 +38,9 @@ $(document).ready(function(){
     
     /**
      * Construit le modal / la fenêtre de sélection d'image et la renvoie
+     * @param {String} idModal
      */
-    function createModal(idCible){
+    function createModal(idModal){
         // Header :
 
         let header = document.createElement("div");
@@ -79,7 +80,7 @@ $(document).ready(function(){
         // Modal :
         
         let modal = document.createElement("div");
-        modal.id = "modal-" + idCible;
+        modal.id = idModal;
         modal.style ="display:none";
         
         modal.appendChild(header);
@@ -95,34 +96,45 @@ $(document).ready(function(){
     function initModaux(){
         elements = document.getElementsByClassName("widget");
 
-        let id;
+        let imageId;
+        let modalId;
         let modal;
         let img;
-        let node;
 
         for(let i=0; i<elements.length; i++){
-            id = randomId();
-            elements[i].id = id;
+            imageId = randomId();
+            elements[i].id = imageId;
 
-            modal = createModal(id);
+            modalId = "modal-" + imageId;
+            modal = createModal(modalId);
 
             img = `<img src=${elements[i].src} class="modal-img">`;
 
             $("body").after(modal);
 
-            $("#modal-" + id + " .modal-body").append(img);
+            $("#"+modalId + " .modal-body").append(img);
 
-            $("#modal-" + id).append(`<img src=${photos[5].src.landscape} class="modal-img">`);
+            initImageModal(modalId);
         };
     }
 
     /**
-     * Initialise les images avec des images du flux JSON
+     * Initialise les images de l'article avec des images de l'array "photos"
      */
-    function initImages() {
+    function initImagesArticle() {
         let images = document.getElementsByClassName("widget");
         for (let i=0; i<images.length; i++) {
             images[i].src = photos[i].src.landscape;
+        }
+    }
+
+    /**
+     * Initialise les images du "footer" d'un modal avec les images de larray "photo"
+     * @param {String} modalId 
+     */
+    function initImageModal(modalId) {
+        for (let i=0; i<photos.length; i++){
+            $("#"+modalId + " .modal-footer").append(`<img src=${photos[i].src.landscape} class="modal-img">`);
         }
     }
 });
