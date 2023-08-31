@@ -58,7 +58,7 @@ function affichageImages(){
 
         img.src = photos[i].src.landscape;
         img.onclick = function(){changerImage(i);}
-        img.className = "modal-img"
+        img.className = "modal-img";
 
        $(".modal-footer").append(img);
     }

@@ -10,18 +10,23 @@ $(document).ready(function(){
      ********************************************************************
      */
 
+    // Ouverture de la fenetre correspondante à l'image cliquée
     $(".widget").click(function(){
         let id = $(this).attr("id");
-        //let src = $(this).attr("src");
-
-        //let str = `<img src=${src} class="modal-img">`;
-
-        //$("#modal-" + id + " .modal-body").append(str);
 
         $("#modal-" + id).modal({
             clickClose: true,
             showClose: false
         });
+    });
+
+    // Changement de l'image concernée lors d'un clic sur une image d'une fenetre
+    $(".modal-img").click(function(){
+        let modalId = $(this).parents(".modal").attr("id");
+        let imageId = modalId.slice(-4);
+        let src = $(this).attr("src");
+
+        $("#" + imageId).attr("src", src);
     });
     
 
@@ -94,6 +99,7 @@ $(document).ready(function(){
         let modal;
         let img;
         let node;
+
         for(let i=0; i<elements.length; i++){
             id = randomId();
             elements[i].id = id;
@@ -105,6 +111,8 @@ $(document).ready(function(){
             $("body").after(modal);
 
             $("#modal-" + id + " .modal-body").append(img);
+
+            $("#modal-" + id).append(`<img src=${photos[5].src.landscape} class="modal-img">`);
         };
     }
 
