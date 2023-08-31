@@ -77,7 +77,7 @@ function createModal(idCible){ // L'id est pour l'instant inutile
         
     let span = document.createElement("span");
     span.className = "close";
-    let textNode0 = document.createTextNode("x");
+    let textNode0 = document.createTextNode("X");
 
     let titleH = document.createElement("H2");
     let textNode1 = document.createTextNode("Sélection de l'image");

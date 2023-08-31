@@ -56,6 +56,11 @@ img {
     float: right;
     font-size: 28px;
     font-weight: bold;
+    background-color: black;
+    height: 30px;
+    width: 30px;
+    border-radius: 15px;
+    text-align: center;
 }
 
 /* Bouton de fermeture quand souris dessus */
