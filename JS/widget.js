@@ -96,7 +96,7 @@ $(document).ready(function(){
      * Initialise les différents modaux
      */
     function initModaux(){
-        elements = document.getElementsByClassName("widget");
+        let elements = document.getElementsByClassName("widget");
 
         let imageId;
         let modalId;
