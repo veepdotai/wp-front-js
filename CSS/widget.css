@@ -1,59 +1,67 @@
+body {
+    overflow-y: auto;
+}
+
 img {
-                height: 352px;
-            }
-            
-            .widget {
-                cursor: pointer;
-            }
+    height: 352px;
+}
 
-            .modal {
-                position: relative;
-                background-color: #5cb85c;
-                padding: 0;
-                border: 1px solid #888;
-                border-radius: 10px;
-                width: 80%;
-                box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
-            }
+.widget {
+    cursor: pointer;
+}
 
-            .modal-header {
-                color: white;
-                padding: 2px 16px;
-            }
+.modal {
+    position: relative;
+    background-color: #5cb85c;
+    padding: 0;
+    border: 1px solid #888;
+    border-radius: 10px;
+    width: 80%;
+    max-height: 80%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+}
 
-            .modal-body {
-                background-color: white;
-                padding: 2px 16px;
-            }
+.modal-header {
+    position: sticky;
+    color: white;
+    padding: 2px 16px;
+}
 
-            .modal-footer {
-                padding: 14px 16px;
-            }
+.modal-body {
+    position: sticky;
+    background-color: white;
+    padding: 2px 16px;
+}
 
-            .modal-img {
-                height: 100px;
-                cursor: pointer;
-            }
+.modal-footer {
+    
+    padding: 16px;
+    
+}
 
-            .blocker {
-                position: fixed;
-                z-index: 1;
-                padding-top: 100px;
-                padding-left: 10%;
-                left: 0;
-                top: 0;
-                width: 100%;
-                height: 100%;
-                background-color: rgba(0, 0, 0, 0.3);
-            }
+.modal-img {
+    height: 100px;
+    cursor: pointer;
+}
 
-            .close {
-                cursor: pointer;
-                color: white;
-                float: right;
-                height: 30px;
-                width: 30px;
-                background-color: black;
-                text-align: center;
-                border-radius: 15px;
-            }
+.blocker {
+    position: fixed;
+    z-index: 1;
+    padding: 10%;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.close {
+    cursor: pointer;
+    color: white;
+    float: right;
+    height: 30px;
+    width: 30px;
+    background-color: black;
+    text-align: center;
+    border-radius: 15px;
+}

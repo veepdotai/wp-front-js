@@ -1,0 +1,8 @@
+.widget{
+    width: 100%;
+    max-width: 900px;
+}
+
+.splide__slide img {
+    width:100%;
+}
