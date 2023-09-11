@@ -4,7 +4,7 @@ const apiUrl = `https://api.pexels.com/v1/search?query=${searchQuery}&per_page=1
 
 //pexelsRequest();
 
-let photos = extractionPhotos(jsonStr);
+//let photos = extractionPhotos(jsonStr);
 //ajoutPhotos(photos,'image-container');
 
 /*
