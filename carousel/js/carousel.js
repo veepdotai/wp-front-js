@@ -1,6 +1,5 @@
 initSplide(photos, photos.length);
 
-
 function initSplide(images, nbImages){
     const widgets = document.getElementsByClassName("widget");
     let id = "";
@@ -19,7 +18,12 @@ function initSplide(images, nbImages){
     }
 }
 
-
+/**
+ * 
+ * @param {String} id 
+ * @param {Integer} nbImages 
+ * @param {Object[]} images 
+ */
 function fillSplide(id, nbImages, images) {
     for (let i=0; i<nbImages; i++) {
         $("#splide-"+id + " img")[i].src = images[i].src.landscape;
