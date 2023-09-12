@@ -1,12 +1,12 @@
 
 $(document).ready(function(){
 
-    $.get("getJsonPexels.php", function(json, status){
+    $.get("http://mysite.local/tests/carousel/getJsonPexels.php", function(json, status){
         
         if (status == "success"){
-            $("p").text("this is fine");
+            //$("p").text("this is fine");
             let photos = extractionPhotos(json);
-            ajoutPhotos(photos, "demo");
+            initSplide(photos, photos.length);
         }else{
             $("p").append("ERROR");
         }

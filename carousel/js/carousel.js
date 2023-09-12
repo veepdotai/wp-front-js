@@ -1,5 +1,3 @@
-initSplide(photos, photos.length);
-
 function initSplide(images, nbImages){
     const widgets = document.getElementsByClassName("widget");
     let id = "";
