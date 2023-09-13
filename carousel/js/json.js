@@ -37,3 +37,15 @@ function ajoutPhotos(photos, idContainer){
         imageContainer.appendChild(imgElement);
     })
 }
+
+/**
+ * Fonction qui rempli un carousel avec des images dans le format de Pexels
+ * @param {String} id 
+ * @param {Integer} nbImages 
+ * @param {Object[]} images 
+ */
+function fillSplide(id, nbImages, images) {
+    for (let i=0; i<nbImages; i++) {
+        $("#splide-"+id + " img")[i].src = images[i].src.landscape;
+    }
+}

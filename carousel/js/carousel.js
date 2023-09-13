@@ -10,21 +10,9 @@ function initSplide(images, nbImages){
 
         $("#widget-" + id).append(carousel);
 
-        fillSplide(id, nbImages, images);
-
-        new Splide('#splide-'+id, {rewind: true}).mount();
-    }
-}
-
-/**
- * 
- * @param {String} id 
- * @param {Integer} nbImages 
- * @param {Object[]} images 
- */
-function fillSplide(id, nbImages, images) {
-    for (let i=0; i<nbImages; i++) {
-        $("#splide-"+id + " img")[i].src = images[i].src.landscape;
+        //fillSplide(id, nbImages, images); // A bouger ?
+        fillSplideUnsplash(id, nbImages, images);
+        new Splide('#splide-'+id, {rewind: true}).mount(); // A bouger ?
     }
 }
 
