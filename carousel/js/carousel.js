@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-    $.get("http://mysite.local/tests/getJson.php", function(json, status){
+    $.get("http://mysite.local/tests/carousel/getJson.php", function(json, status){
         
         if (status == "success"){
             //$("p").text("this is fine");
