@@ -4,5 +4,14 @@
 }
 
 .splide__slide img {
+    display: block;
     width:100%;
+}
+
+.splide__slide {
+    margin: auto;
+}
+
+.splide__track {
+    background-color: grey;
 }
