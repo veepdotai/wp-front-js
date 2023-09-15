@@ -83,14 +83,32 @@ const veepdotai_carousel = {
 
 $(document).ready(function(){
 
-    $.get("http://mysite.local/tests/carousel/getJson.php", function(json, status){
+    $("#form").submit(function(event){
+        event.preventDefault();
+
+        $(".widget").empty();
+
+        const query = document.getElementById("query").value;
         
-        if (status == "success"){
-            //$("p").text("this is fine");
-            let photos = veepdotai_carousel.extractImages(json);
-            veepdotai_carousel.initSplide(photos, photos.length);
-        }else{
-            $("p").append("ERROR");
+        const radios = document.getElementsByName("api");
+        let api = "";
+        for (let i=0; i<radios.length; i++){
+            if (radios[i].checked) {
+                api = radios[i].value;
+            }
         }
+
+        const data = {query, api}; // @TODO ajouter nb photos ?
+
+        $.post("http://mysite.local/tests/carousel/getJson.php", data, function(json, status){
+            
+            if (status == "success"){
+                //$("p").text("this is fine");
+                let photos = veepdotai_carousel.extractImages(json);
+                veepdotai_carousel.initSplide(photos, photos.length);
+            }else{
+                $("p").append("ERROR");
+            }
+        });
     });
 });

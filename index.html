@@ -14,8 +14,19 @@
     </head>
 
     <body>
-        <button id="pexels-btn">Pexels</button>
-        <button id="unsplash-btn">Unsplash</button>
+        <form id="form">
+            <input id="query" type="text" name="recherche" value="paysage"><br>
+            <input id="api-pex" type="radio" name="api" value="pexels">
+            <label for="api-pex">Pexels</label><br>
+            <input id="api-unsp" type="radio" name="api" value="unsplash">
+            <label for="api-unsp">Unsplash</label><br>
+            <input id="api-both" type="radio" name="api" value="both" checked>
+            <label for="api-both">Both</label><br>
+
+            <button type="submit">Lancer recherche</button>
+        </form>
+        <p></p>
+        <p id="test">...</p>
         <p></p>
         <div class="widget"></div>
         <p></p>
