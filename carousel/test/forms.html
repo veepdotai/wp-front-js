@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Forms</title>
+
+        <script src="http://mysite.local/tests/carousel/js/jquery-3.7.1.js"></script>
+    </head>
+
+    <body>
+        <form id="form">
+            <input id="query" type="text" name="recherche" value="paysage"><br>
+            <input id="api-pex" type="radio" name="api" value="pexels">
+            <label for="api-pex">Pexels</label><br>
+            <input id="api-unsp" type="radio" name="api" value="unsplash">
+            <label for="api-unsp">Unsplash</label><br>
+            <input id="api-both" type="radio" name="api" value="both" checked>
+            <label for="api-both">Both</label><br>
+
+            <button type="submit">Lancer recherche</button>
+        </form>
+
+        <p>...</p>
+
+        <script>
+
+            $("#form").submit(function(event){
+                event.preventDefault();
+
+                const query = document.getElementById("query").value;
+                
+                const radios = document.getElementsByName("api");
+                let api = "";
+                for (let i=0; i<radios.length; i++){
+                    if (radios[i].checked) {
+                        api = radios[i].value;
+                    }
+                }
+
+                const data = api + ": " + query + " \n";
+
+                $("p").append(data);
+            })
+
+
+
+
+
+
+
+            
+        </script>
+    </body>
+</html> 
