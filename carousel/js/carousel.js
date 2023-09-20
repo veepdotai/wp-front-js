@@ -110,13 +110,9 @@ const VeepdotaiCarousel = {
     afficheBoutons: function(){
         const str = `
             <div id="boutons">
-                <div id="annulation">
+                <button id="validation">Valider</button>
 
-                </div>
-
-                <div id="validation">
-                
-                </div>
+                <button id="annulation">Annuler</button>
             </div>
         `; 
         $(".splide__track").append(str);
