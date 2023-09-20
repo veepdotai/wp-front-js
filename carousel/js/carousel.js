@@ -1,4 +1,4 @@
-const veepdotai_carousel = { 
+const VeepdotaiCarousel = { 
 
     /**
      * Fonction qui crée les différentes instances de carrousels et les ajoute à la page
@@ -18,6 +18,9 @@ const veepdotai_carousel = {
             $("#widget-" + id).append(carousel);
 
             this.fillSplide(id, nbImages, images);
+
+            $(".wp-block-post-featured-image img:first").hide();
+
             new Splide('#splide-'+id, {rewind: true}).mount();
         }
     },
@@ -78,15 +81,67 @@ const veepdotai_carousel = {
         for (let i=0; i<nbImages; i++) {
             $("#splide-"+id + " img")[i].src = images[i].media;
         }
+        this.afficheBoutons();
+    },
+
+    /**
+     * 
+     * @param {string} idElement 
+     * @param {string} defaultQuery 
+     */
+    afficheForm: function(idElement, defaultQuery){
+        let str = `
+            <form id="form" method="get" autocomplete="on">
+                <input id="query" type="text" name="recherche" value="${defaultQuery}"><br>
+                <input id="api-pex" type="radio" name="api" value="pexels">
+                <label for="api-pex">Pexels</label><br>
+                <input id="api-unsp" type="radio" name="api" value="unsplash">
+                <label for="api-unsp">Unsplash</label><br>
+                <input id="api-both" type="radio" name="api" value="both" checked>
+                <label for="api-both">Both</label><br>
+
+                <button type="submit">Lancer recherche</button>
+            </form>
+        `;
+        //$("#form").remove();
+        $("#"+idElement).parent().append(str);
+    },
+
+    afficheBoutons: function(){
+        const str = `
+            <div id="boutons">
+                <div id="annulation">
+
+                </div>
+
+                <div id="validation">
+                
+                </div>
+            </div>
+        `; 
+        $(".splide__track").append(str);
     }
+
 }
 
 $(document).ready(function(){
+    $("#form").hide();
+
+    $("figure img").click(function(){
+        let id = VeepdotaiCarousel.randomId();
+        $(this).attr("id","img-" + id);
+        let queryImage = $(this).attr("alt");
+        
+        $("#form").show();
+    });
+
 
     $("#form").submit(function(event){
         event.preventDefault();
 
-        $(".widget").empty();
+        $(".widget .splide").remove();
+
+        $("form").hide();
 
         const query = document.getElementById("query").value;
         
@@ -104,8 +159,23 @@ $(document).ready(function(){
             
             if (status == "success"){
                 //$("p").text("this is fine");
-                let photos = veepdotai_carousel.extractImages(json);
-                veepdotai_carousel.initSplide(photos, photos.length);
+                let photos = VeepdotaiCarousel.extractImages(json);
+                VeepdotaiCarousel.initSplide(photos, photos.length);
+
+                $("#annulation").click(function(){
+                    $(".widget .splide").remove();
+                    $(".wp-block-post-featured-image img:first").show();
+                });
+
+                $("#validation").click(function(){
+                    let url = $(".is-active").children("img").attr("src");
+                    $(".wp-block-post-featured-image img:first").attr("src",url);
+                    $(".widget .splide").remove();
+                    $(".wp-block-post-featured-image img:first").show();
+                });
+
+
+
             }else{
                 $("p").append("ERROR");
             }

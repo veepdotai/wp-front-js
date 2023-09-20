@@ -1,8 +1,3 @@
-.widget{
-    width: 100%;
-    max-width: 900px;
-}
-
 .splide__slide img {
     display: block;
     width:100%;
@@ -13,5 +8,28 @@
 }
 
 .splide__track {
+    position: relative;
     background-color: grey;
+}
+
+#annulation {
+    display: inline-block;
+    background-color: red;
+    cursor: pointer;
+    width:20px;
+    height: 20px;
+}
+
+#validation {
+    display: inline-block;
+    background-color: green;
+    cursor: pointer;
+    width:20px;
+    height: 20px;
+}
+
+#boutons {
+    position: absolute;
+    bottom: 0;
+    right: 0;
 }
