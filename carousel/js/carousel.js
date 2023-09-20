@@ -86,10 +86,9 @@ const VeepdotaiCarousel = {
 
     /**
      * 
-     * @param {string} idElement 
      * @param {string} defaultQuery 
      */
-    afficheForm: function(idElement, defaultQuery){
+    formStr: function(defaultQuery){
         let str = `
             <form id="form" method="get" autocomplete="on">
                 <input id="query" type="text" name="recherche" value="${defaultQuery}"><br>
@@ -103,10 +102,12 @@ const VeepdotaiCarousel = {
                 <button type="submit">Lancer recherche</button>
             </form>
         `;
-        //$("#form").remove();
-        $("#"+idElement).parent().append(str);
+        return str;
     },
 
+    /**
+     * 
+     */
     afficheBoutons: function(){
         const str = `
             <div id="boutons">
@@ -121,6 +122,7 @@ const VeepdotaiCarousel = {
 }
 
 $(document).ready(function(){
+    $(".widget").append(VeepdotaiCarousel.formStr(""));
     $("#form").hide();
 
     $("figure img").click(function(){
