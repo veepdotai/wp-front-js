@@ -1,8 +1,8 @@
 <?php
 require 'vendor/autoload.php';
 
-$pexels_key = 'wq2JAMdIYANS25GZSqH2qbA3tFS9nSogifigVIJf7KzSEUfh12k9VtBB';
-$unsplash_key = 'BuuOpti6lokv09YODtob5wklRrh-uRbAvOjMreFhgWc';
+$pexels_key = $_POST["pexelsKey"];//'wq2JAMdIYANS25GZSqH2qbA3tFS9nSogifigVIJf7KzSEUfh12k9VtBB'
+$unsplash_key = $_POST["unsplashKey"];//'BuuOpti6lokv09YODtob5wklRrh-uRbAvOjMreFhgWc'
 
 use ImgFinder\Repository\PexelsRepository;
 use ImgFinder\Repository\UnsplashRepository;

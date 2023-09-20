@@ -151,7 +151,7 @@ $(document).ready(function(){
             }
         }
 
-        const data = {query, api}; // @TODO ajouter nb photos ?
+        const data = {query, api, pexelsKey, unsplashKey}; // @TODO remplacer les clés d'api
 
         $.post("http://mysite.local/tests/carousel/getJson.php", data, function(json, status){
             
