@@ -1,4 +1,4 @@
-const veepdotai_carousel = { 
+const VeepdotaiCarousel = { 
 
     /**
      * Fonction qui crée les différentes instances de carrousels et les ajoute à la page
@@ -18,6 +18,9 @@ const veepdotai_carousel = {
             $("#widget-" + id).append(carousel);
 
             this.fillSplide(id, nbImages, images);
+
+            $(".widget img:first").hide();
+
             new Splide('#splide-'+id, {rewind: true}).mount();
         }
     },
@@ -78,15 +81,65 @@ const veepdotai_carousel = {
         for (let i=0; i<nbImages; i++) {
             $("#splide-"+id + " img")[i].src = images[i].media;
         }
+        this.afficheBoutons();
+    },
+
+    /**
+     * 
+     * @param {string} defaultQuery 
+     */
+    formStr: function(defaultQuery){
+        let str = `
+            <form id="carousel-form" method="get" autocomplete="on">
+                <input id="query" type="text" name="recherche" value="${defaultQuery}"><br>
+                <input id="api-pex" type="radio" name="api" value="pexels">
+                <label for="api-pex">Pexels</label><br>
+                <input id="api-unsp" type="radio" name="api" value="unsplash">
+                <label for="api-unsp">Unsplash</label><br>
+                <input id="api-both" type="radio" name="api" value="both" checked>
+                <label for="api-both">Both</label><br>
+
+                <button type="submit">Lancer recherche</button>
+            </form>
+        `;
+        return str;
+    },
+
+    /**
+     * 
+     */
+    afficheBoutons: function(){
+        const str = `
+            <div id="boutons">
+                <button id="validation">Valider</button>
+
+                <button id="annulation">Annuler</button>
+            </div>
+        `; 
+        $(".splide__track").append(str);
     }
+
 }
 
 $(document).ready(function(){
+    $(".widget").append(VeepdotaiCarousel.formStr(""));
+    $("#carousel-form").hide();
 
-    $("#form").submit(function(event){
+    $("figure img").click(function(){
+        let id = VeepdotaiCarousel.randomId();
+        $(this).attr("id","img-" + id);
+        let queryImage = $(this).attr("alt");
+        document.getElementById("query").value = queryImage;
+        $("#carousel-form").show();
+    });
+
+
+    $("#carousel-form").submit(function(event){
         event.preventDefault();
 
-        $(".widget").empty();
+        $(".widget .splide").remove();
+
+        $("form").hide();
 
         const query = document.getElementById("query").value;
         
@@ -103,9 +156,25 @@ $(document).ready(function(){
         $.post("http://mysite.local/tests/carousel/getJson.php", data, function(json, status){
             
             if (status == "success"){
-                //$("p").text("this is fine");
-                let photos = veepdotai_carousel.extractImages(json);
-                veepdotai_carousel.initSplide(photos, photos.length);
+                //$("p").text(json);
+                let photos = VeepdotaiCarousel.extractImages(json);
+                VeepdotaiCarousel.initSplide(photos, photos.length);
+
+                $("#annulation").click(function(){
+                    $(".widget .splide").remove();
+                    $(".widget img:first").show();
+                });
+
+                $("#validation").click(function(){
+                    let url = $(".is-active").children("img").attr("src");
+                    $(".widget img:first").attr("src",url);
+                    $(".widget img:first").attr("alt",document.getElementById("query").value);
+                    $(".widget .splide").remove();
+                    $(".widget img:first").show();
+                });
+
+
+
             }else{
                 $("p").append("ERROR");
             }
