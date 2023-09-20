@@ -131,7 +131,7 @@ $(document).ready(function(){
         let id = VeepdotaiCarousel.randomId();
         $(this).attr("id","img-" + id);
         let queryImage = $(this).attr("alt");
-        
+        document.getElementById("query").value = queryImage;
         $("#form").show();
     });
 
@@ -158,7 +158,7 @@ $(document).ready(function(){
         $.post("http://mysite.local/tests/carousel/getJson.php", data, function(json, status){
             
             if (status == "success"){
-                //$("p").text("this is fine");
+                //$("p").text(json);
                 let photos = VeepdotaiCarousel.extractImages(json);
                 VeepdotaiCarousel.initSplide(photos, photos.length);
 
@@ -170,6 +170,7 @@ $(document).ready(function(){
                 $("#validation").click(function(){
                     let url = $(".is-active").children("img").attr("src");
                     $(".wp-block-post-featured-image img:first").attr("src",url);
+                    $(".wp-block-post-featured-image img:first").attr("alt",document.getElementById("query").value);
                     $(".widget .splide").remove();
                     $(".wp-block-post-featured-image img:first").show();
                 });
