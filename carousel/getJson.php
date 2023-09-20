@@ -7,7 +7,7 @@ $unsplash_key = $_POST["unsplashKey"];//'BuuOpti6lokv09YODtob5wklRrh-uRbAvOjMreF
 use ImgFinder\Repository\PexelsRepository;
 use ImgFinder\Repository\UnsplashRepository;
 
-$nb_page = 2;
+$nbImage = 2;
 $query = $_POST["query"];
 $api = [$_POST["api"]];
 
@@ -34,10 +34,10 @@ $finder = new ImgFinder\ImgFinder($config);
 if ($api[0] === "both") {
     $api = ['pexels','unsplash'];
 }else{
-    $nb_page *= 2;
+    $nbImage *= 2;
 }
 
-$request = ImgFinder\Request::set($query, $api, 1, $nb_page);
+$request = ImgFinder\Request::set($query, $api, 1, $nbImage);
 $response = $finder->search($request);
 
 $imagesUrls = $response->toArray();

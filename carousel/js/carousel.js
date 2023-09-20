@@ -1,3 +1,9 @@
+/**
+ * A remplacer par ses clés
+ */
+let apiKeyPexels = pexelsKey;
+let apiKeyUnsplash = unsplashKey;
+
 const VeepdotaiCarousel = { 
 
     /**
@@ -151,7 +157,7 @@ $(document).ready(function(){
             }
         }
 
-        const data = {query, api, pexelsKey, unsplashKey}; // @TODO remplacer les clés d'api
+        const data = {query, api, apiKeyPexels, apiKeyUnsplash}; // @TODO remplacer les clés d'api
 
         $.post("http://mysite.local/tests/carousel/getJson.php", data, function(json, status){
             
@@ -172,8 +178,6 @@ $(document).ready(function(){
                     $(".widget .splide").remove();
                     $(".widget img:first").show();
                 });
-
-
 
             }else{
                 $("p").append("ERROR");
