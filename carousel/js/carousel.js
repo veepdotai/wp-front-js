@@ -19,7 +19,7 @@ const VeepdotaiCarousel = {
 
             this.fillSplide(id, nbImages, images);
 
-            $(".wp-block-post-featured-image img:first").hide();
+            $(".widget img:first").hide();
 
             new Splide('#splide-'+id, {rewind: true}).mount();
         }
@@ -162,15 +162,15 @@ $(document).ready(function(){
 
                 $("#annulation").click(function(){
                     $(".widget .splide").remove();
-                    $(".wp-block-post-featured-image img:first").show();
+                    $(".widget img:first").show();
                 });
 
                 $("#validation").click(function(){
                     let url = $(".is-active").children("img").attr("src");
-                    $(".wp-block-post-featured-image img:first").attr("src",url);
-                    $(".wp-block-post-featured-image img:first").attr("alt",document.getElementById("query").value);
+                    $(".widget img:first").attr("src",url);
+                    $(".widget img:first").attr("alt",document.getElementById("query").value);
                     $(".widget .splide").remove();
-                    $(".wp-block-post-featured-image img:first").show();
+                    $(".widget img:first").show();
                 });
 
 

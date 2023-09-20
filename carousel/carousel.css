@@ -40,6 +40,6 @@
     position: absolute;
 }
 
-.wp-block-post-featured-image {
+.widget {
     cursor: pointer;
 }
