@@ -33,3 +33,15 @@
     bottom: 0;
     right: 0;
 }
+
+form {
+    border-radius: 5px;
+    padding: 5px;
+    width: fit-content;
+    background-color: grey;
+    position: absolute;
+}
+
+.wp-block-post-featured-image {
+    cursor: pointer;
+}
