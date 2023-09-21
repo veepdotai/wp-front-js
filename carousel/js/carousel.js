@@ -1,13 +1,15 @@
 /**
- * A remplacer par ses clés
+ * A remplacer par ses propres clés
  */
 let apiKeyPexels = pexelsKey;
 let apiKeyUnsplash = unsplashKey;
 
+
+
 const VeepdotaiCarousel = { 
 
     /**
-     * Fonction qui crée les différentes instances de carrousels et les ajoute à la page
+     * Fonction qui crée les différentes instances de carrousels et les ajoute à tous les éléments de classe "widget"
      * @param {Array} images 
      * @param {int} nbImages 
      */
