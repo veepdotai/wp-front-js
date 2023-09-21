@@ -1,8 +1,8 @@
 <?php
 require 'vendor/autoload.php';
 
-$pexels_key = $_POST["pexelsKey"];
-$unsplash_key = $_POST["unsplashKey"];
+$pexels_key = $_POST["apiKeyPexels"];
+$unsplash_key = $_POST["apiKeyUnsplash"];
 
 use ImgFinder\Repository\PexelsRepository;
 use ImgFinder\Repository\UnsplashRepository;
