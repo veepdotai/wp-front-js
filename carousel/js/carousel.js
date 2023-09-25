@@ -3,8 +3,10 @@
 const apiKeyPexels = pexelsKey;
 const apiKeyUnsplash = unsplashKey;
 
-// A remplacer par son chemin d'accès au dossier carousel
-const pathToPhp = window.location.protocol + "//" + window.location.hostname + "/tests/carousel";
+// permet d'échanger entre un mod static avec des données locales et un mode en ligne où les requêtes sont faites aux api
+const staticMode = false;
+
+const pathToCarousel = window.location.protocol + "//" + window.location.hostname + "/tests/carousel";
 
 const VeepdotaiCarousel = { 
 
@@ -89,7 +91,7 @@ const VeepdotaiCarousel = {
         for (let i=0; i<nbImages; i++) {
             $("#splide-"+id + " img")[i].src = images[i].media;
         }
-        this.afficheBoutons();
+        this.createButtons();
     },
 
     /**
@@ -116,7 +118,7 @@ const VeepdotaiCarousel = {
     /**
      * Fonction qui fabrique la structure HTML des boutons d'annulation/validation en chaîne de caracteres et l'ajoute à la page
      */
-    afficheBoutons: function(){
+    createButtons: function(){
         const str = `
             <div id="boutons">
                 <button id="validation">Valider</button>
@@ -128,7 +130,7 @@ const VeepdotaiCarousel = {
     },
 
     initWidget: function(){
-        $(".widget").append(VeepdotaiCarousel.formStr(""));
+        $(".widget").append(this.formStr(""));
         $("#carousel-form").hide();
     },
 
@@ -160,32 +162,57 @@ const VeepdotaiCarousel = {
                 }
             }
     
-            const data = {query, api, apiKeyPexels, apiKeyUnsplash}; // @TODO remplacer les clés d'api
-    
-            $.post(pathToPhp + "/getJson.php", data, function(json, status){
-                
-                if (status == "success"){
-                    //$("p").text(json);
-                    let photos = VeepdotaiCarousel.extractImages(json);
-                    VeepdotaiCarousel.initSplide(photos, photos.length);
-    
-                    $("#annulation").click(function(){
-                        $(".widget .splide").remove();
-                        $(".widget img:first").show();
-                    });
-    
-                    $("#validation").click(function(){
-                        let url = $(".is-active").children("img").attr("src");
-                        $(".widget img:first").attr("src",url);
-                        $(".widget img:first").attr("alt",document.getElementById("query").value);
-                        $(".widget .splide").remove();
-                        $(".widget img:first").show();
-                    });
-    
-                }else{
-                    $("p").append("ERROR");
+            const data = {query, api, apiKeyPexels, apiKeyUnsplash};
+
+            if (staticMode) {
+                $("#debug").text("STATIC MODE - request: Paysage");
+                let json;
+                switch(api){
+                    case "pexels":
+                        json = staticJsonPexels;
+                        break;
+                    case "unsplash":
+                        json = staticJsonUnsplash;
+                        break;
+                    case "both":
+                        json = staticjson;
+                        break;
                 }
-            });
+                VeepdotaiCarousel.processJson(json);
+            
+            }else {
+                $.post(pathToCarousel + "/getJson.php", data, function(json, status){ 
+                    if (status == "success"){
+                        VeepdotaiCarousel.processJson(json);
+                    }else{
+                        $("#debug").append("ERROR");
+                    }
+                });
+            }
+        });
+    },
+
+    /**
+     * 
+     * @param {string} json 
+     */
+    processJson: function(json){
+
+        //$("#debug").text(json);
+        let photos = VeepdotaiCarousel.extractImages(json);
+        VeepdotaiCarousel.initSplide(photos, photos.length);
+
+        $("#annulation").click(function(){
+            $(".widget .splide").remove();
+            $(".widget img:first").show();
+        });
+
+        $("#validation").click(function(){
+            let url = $(".is-active").children("img").attr("src");
+            $(".widget img:first").attr("src",url);
+            $(".widget img:first").attr("alt",document.getElementById("query").value);
+            $(".widget .splide").remove();
+            $(".widget img:first").show();
         });
     },
 
