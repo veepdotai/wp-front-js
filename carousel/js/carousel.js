@@ -1,10 +1,10 @@
-/**
- * A remplacer par ses propres clés
- */
-let apiKeyPexels = pexelsKey;
-let apiKeyUnsplash = unsplashKey;
 
+// A remplacer par ses propres clés
+const apiKeyPexels = pexelsKey;
+const apiKeyUnsplash = unsplashKey;
 
+// A remplacer par son chemin d'accès au dossier carousel
+const pathToPhp = window.location.protocol + "//" + window.location.hostname + "/tests/carousel";
 
 const VeepdotaiCarousel = { 
 
@@ -162,7 +162,7 @@ const VeepdotaiCarousel = {
     
             const data = {query, api, apiKeyPexels, apiKeyUnsplash}; // @TODO remplacer les clés d'api
     
-            $.post("http://mysite.local/tests/carousel/getJson.php", data, function(json, status){
+            $.post(pathToPhp + "/getJson.php", data, function(json, status){
                 
                 if (status == "success"){
                     //$("p").text(json);
