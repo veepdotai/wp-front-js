@@ -93,7 +93,7 @@ const VeepdotaiCarousel = {
     },
 
     /**
-     * 
+     * Fonction qui fabrique la structure HTML du formulaire en chaîne de caracteres
      * @param {string} defaultQuery 
      */
     formStr: function(defaultQuery){
@@ -114,7 +114,7 @@ const VeepdotaiCarousel = {
     },
 
     /**
-     * 
+     * Fonction qui fabrique la structure HTML des boutons d'annulation/validation en chaîne de caracteres et l'ajoute à la page
      */
     afficheBoutons: function(){
         const str = `
@@ -125,65 +125,77 @@ const VeepdotaiCarousel = {
             </div>
         `; 
         $(".splide__track").append(str);
-    }
+    },
 
+    initWidget: function(){
+        $(".widget").append(VeepdotaiCarousel.formStr(""));
+        $("#carousel-form").hide();
+    },
+
+    initClick: function(){
+        $("figure img").click(function(){
+            let id = VeepdotaiCarousel.randomId();
+            $(this).attr("id","img-" + id);
+            let queryImage = $(this).attr("alt");
+            document.getElementById("query").value = queryImage;
+            $("#carousel-form").show();
+        });
+    },
+
+    initForm: function(){
+        $("#carousel-form").submit(function(event){
+            event.preventDefault();
+    
+            $(".widget .splide").remove();
+    
+            $("form").hide();
+    
+            const query = document.getElementById("query").value;
+            
+            const radios = document.getElementsByName("api");
+            let api = "";
+            for (let i=0; i<radios.length; i++){
+                if (radios[i].checked) {
+                    api = radios[i].value;
+                }
+            }
+    
+            const data = {query, api, apiKeyPexels, apiKeyUnsplash}; // @TODO remplacer les clés d'api
+    
+            $.post("http://mysite.local/tests/carousel/getJson.php", data, function(json, status){
+                
+                if (status == "success"){
+                    //$("p").text(json);
+                    let photos = VeepdotaiCarousel.extractImages(json);
+                    VeepdotaiCarousel.initSplide(photos, photos.length);
+    
+                    $("#annulation").click(function(){
+                        $(".widget .splide").remove();
+                        $(".widget img:first").show();
+                    });
+    
+                    $("#validation").click(function(){
+                        let url = $(".is-active").children("img").attr("src");
+                        $(".widget img:first").attr("src",url);
+                        $(".widget img:first").attr("alt",document.getElementById("query").value);
+                        $(".widget .splide").remove();
+                        $(".widget img:first").show();
+                    });
+    
+                }else{
+                    $("p").append("ERROR");
+                }
+            });
+        });
+    },
+
+    widget: function(){
+        this.initWidget();
+        this.initClick();
+        this.initForm();
+    }
 }
 
 $(document).ready(function(){
-    $(".widget").append(VeepdotaiCarousel.formStr(""));
-    $("#carousel-form").hide();
-
-    $("figure img").click(function(){
-        let id = VeepdotaiCarousel.randomId();
-        $(this).attr("id","img-" + id);
-        let queryImage = $(this).attr("alt");
-        document.getElementById("query").value = queryImage;
-        $("#carousel-form").show();
-    });
-
-
-    $("#carousel-form").submit(function(event){
-        event.preventDefault();
-
-        $(".widget .splide").remove();
-
-        $("form").hide();
-
-        const query = document.getElementById("query").value;
-        
-        const radios = document.getElementsByName("api");
-        let api = "";
-        for (let i=0; i<radios.length; i++){
-            if (radios[i].checked) {
-                api = radios[i].value;
-            }
-        }
-
-        const data = {query, api, apiKeyPexels, apiKeyUnsplash}; // @TODO remplacer les clés d'api
-
-        $.post("http://mysite.local/tests/carousel/getJson.php", data, function(json, status){
-            
-            if (status == "success"){
-                //$("p").text(json);
-                let photos = VeepdotaiCarousel.extractImages(json);
-                VeepdotaiCarousel.initSplide(photos, photos.length);
-
-                $("#annulation").click(function(){
-                    $(".widget .splide").remove();
-                    $(".widget img:first").show();
-                });
-
-                $("#validation").click(function(){
-                    let url = $(".is-active").children("img").attr("src");
-                    $(".widget img:first").attr("src",url);
-                    $(".widget img:first").attr("alt",document.getElementById("query").value);
-                    $(".widget .splide").remove();
-                    $(".widget img:first").show();
-                });
-
-            }else{
-                $("p").append("ERROR");
-            }
-        });
-    });
+    VeepdotaiCarousel.widget();   
 });
