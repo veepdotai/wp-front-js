@@ -37,7 +37,7 @@ if ($api[0] === "both") {
     $nbImage *= 2;
 }
 
-$request = ImgFinder\Request::set($query, $api, 1, $nbImage);
+$request = ImgFinder\Request::set($query, $api, 1, $nbImage, 'landscape', 1200, 320);
 $response = $finder->search($request);
 
 $imagesUrls = $response->toArray();
