@@ -3,10 +3,10 @@ const staticMode = true;
 
 const pathToCarousel = window.location.protocol + "//" + window.location.hostname + "/tests/carousel";
 
-if (staticMode){
+if (!staticMode){
     // A remplacer par ses propres clés
-    const apiKeyPexels = pexelsKey;
-    const apiKeyUnsplash = unsplashKey;
+    var apiKeyPexels = pexelsKey;
+    var apiKeyUnsplash = unsplashKey;
 }
 
 const VeepdotaiCarousel = { 
@@ -162,8 +162,6 @@ const VeepdotaiCarousel = {
                     api = radios[i].value;
                 }
             }
-    
-            const data = {query, api, apiKeyPexels, apiKeyUnsplash};
 
             if (staticMode) {
                 $("#debug").text("STATIC MODE - request: Paysage");
@@ -176,12 +174,13 @@ const VeepdotaiCarousel = {
                         json = staticJsonUnsplash;
                         break;
                     case "both":
-                        json = staticjson;
+                        json = staticJson;
                         break;
                 }
                 VeepdotaiCarousel.processJson(json);
             
             }else {
+                const data = {query, api, apiKeyPexels, apiKeyUnsplash};
                 $.post(pathToCarousel + "/getJson.php", data, function(json, status){ 
                     if (status == "success"){
                         VeepdotaiCarousel.processJson(json);
