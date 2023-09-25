@@ -136,7 +136,7 @@ const VeepdotaiCarousel = {
     },
 
     initClick: function(){
-        $("figure img").click(function(){
+        $(".widget img").click(function(){
             let id = VeepdotaiCarousel.randomId();
             $(this).attr("id","img-" + id);
             let queryImage = $(this).attr("alt");
