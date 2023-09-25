@@ -1,12 +1,13 @@
-
-// A remplacer par ses propres clés
-const apiKeyPexels = pexelsKey;
-const apiKeyUnsplash = unsplashKey;
-
-// permet d'échanger entre un mod static avec des données locales et un mode en ligne où les requêtes sont faites aux api
-const staticMode = false;
+// Permet d'échanger entre un mode static avec des données locales et un mode en ligne où les requêtes sont faites aux api
+const staticMode = true;
 
 const pathToCarousel = window.location.protocol + "//" + window.location.hostname + "/tests/carousel";
+
+if (staticMode){
+    // A remplacer par ses propres clés
+    const apiKeyPexels = pexelsKey;
+    const apiKeyUnsplash = unsplashKey;
+}
 
 const VeepdotaiCarousel = { 
 
