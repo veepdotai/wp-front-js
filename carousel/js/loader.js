@@ -28,11 +28,10 @@
 	 * Although scripts in the WordPress core, Plugins and Themes may be
 	 * practising this, we should strive to set a better example in our own work.
 	 */
-
-	//alert('Coucou');
-
-	$('.wp-block-image').addClass('widget');
 	
-	//console.log("coucou");
+	$(document).ready(function(){
+		$(".wp-block-post-featured-image:first").addClass('widget');
+	});
+
 })( jQuery );
 

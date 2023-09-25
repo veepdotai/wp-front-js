@@ -101,7 +101,7 @@ const VeepdotaiCarousel = {
      */
     formStr: function(defaultQuery){
         let str = `
-            <form id="carousel-form" method="get" autocomplete="on">
+            <form id="carousel-form" method="get">
                 <input id="query" type="text" name="recherche" value="${defaultQuery}"><br>
                 <input id="api-pex" type="radio" name="api" value="pexels">
                 <label for="api-pex">Pexels</label><br>
@@ -136,10 +136,10 @@ const VeepdotaiCarousel = {
     },
 
     initClick: function(){
-        $(".widget img").click(function(){
+        $(".widget span").click(function(){
             let id = VeepdotaiCarousel.randomId();
-            $(this).attr("id","img-" + id);
-            let queryImage = $(this).attr("alt");
+            $(this).siblings("img").attr("id","img-" + id);
+            let queryImage = $(this).siblings("img").attr("alt");
             document.getElementById("query").value = queryImage;
             $("#carousel-form").show();
         });
@@ -210,6 +210,7 @@ const VeepdotaiCarousel = {
         $("#validation").click(function(){
             let url = $(".is-active").children("img").attr("src");
             $(".widget img:first").attr("src",url);
+            $(".widget img:first").attr("srcset", url + " 2048w");
             $(".widget img:first").attr("alt",document.getElementById("query").value);
             $(".widget .splide").remove();
             $(".widget img:first").show();
@@ -217,8 +218,10 @@ const VeepdotaiCarousel = {
     },
 
     widget: function(){
-        this.initWidget();
+        this.initWidget(); // OK
+        
         this.initClick();
+        
         this.initForm();
     }
 }
