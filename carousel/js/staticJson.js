@@ -1,4 +1,8 @@
-const staticjson = 
+/**
+ * Ce fichier contient des variables avec des flux json pour des tests statiques
+ */
+
+const staticJson = 
 `[
 	{
 	"author":"Lorenzo Castellino",

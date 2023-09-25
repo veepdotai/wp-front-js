@@ -1,12 +1,13 @@
-
-// A remplacer par ses propres clés
-const apiKeyPexels = pexelsKey;
-const apiKeyUnsplash = unsplashKey;
-
-// permet d'échanger entre un mod static avec des données locales et un mode en ligne où les requêtes sont faites aux api
-const staticMode = false;
+// Permet d'échanger entre un mode static avec des données locales et un mode en ligne où les requêtes sont faites aux api
+const staticMode = true;
 
 const pathToCarousel = window.location.protocol + "//" + window.location.hostname + "/tests/carousel";
+
+if (!staticMode){
+    // A remplacer par ses propres clés
+    var apiKeyPexels = pexelsKey;
+    var apiKeyUnsplash = unsplashKey;
+}
 
 const VeepdotaiCarousel = { 
 
@@ -100,7 +101,7 @@ const VeepdotaiCarousel = {
      */
     formStr: function(defaultQuery){
         let str = `
-            <form id="carousel-form" method="get" autocomplete="on">
+            <form id="carousel-form" method="get">
                 <input id="query" type="text" name="recherche" value="${defaultQuery}"><br>
                 <input id="api-pex" type="radio" name="api" value="pexels">
                 <label for="api-pex">Pexels</label><br>
@@ -135,10 +136,10 @@ const VeepdotaiCarousel = {
     },
 
     initClick: function(){
-        $("figure img").click(function(){
+        $(".widget span").click(function(){
             let id = VeepdotaiCarousel.randomId();
-            $(this).attr("id","img-" + id);
-            let queryImage = $(this).attr("alt");
+            $(this).siblings("img").attr("id","img-" + id);
+            let queryImage = $(this).siblings("img").attr("alt");
             document.getElementById("query").value = queryImage;
             $("#carousel-form").show();
         });
@@ -161,8 +162,6 @@ const VeepdotaiCarousel = {
                     api = radios[i].value;
                 }
             }
-    
-            const data = {query, api, apiKeyPexels, apiKeyUnsplash};
 
             if (staticMode) {
                 $("#debug").text("STATIC MODE - request: Paysage");
@@ -175,12 +174,13 @@ const VeepdotaiCarousel = {
                         json = staticJsonUnsplash;
                         break;
                     case "both":
-                        json = staticjson;
+                        json = staticJson;
                         break;
                 }
                 VeepdotaiCarousel.processJson(json);
             
             }else {
+                const data = {query, api, apiKeyPexels, apiKeyUnsplash};
                 $.post(pathToCarousel + "/getJson.php", data, function(json, status){ 
                     if (status == "success"){
                         VeepdotaiCarousel.processJson(json);
@@ -210,6 +210,7 @@ const VeepdotaiCarousel = {
         $("#validation").click(function(){
             let url = $(".is-active").children("img").attr("src");
             $(".widget img:first").attr("src",url);
+            $(".widget img:first").attr("srcset", url + " 2048w");
             $(".widget img:first").attr("alt",document.getElementById("query").value);
             $(".widget .splide").remove();
             $(".widget img:first").show();
@@ -217,8 +218,10 @@ const VeepdotaiCarousel = {
     },
 
     widget: function(){
-        this.initWidget();
+        this.initWidget(); // OK
+        
         this.initClick();
+        
         this.initForm();
     }
 }
