@@ -35,9 +35,7 @@
 #carousel-form {
     border-radius: 5px;
     padding: 5px;
-    width: fit-content;
     background-color: grey;
-    position: absolute;
 }
 
 .widget {

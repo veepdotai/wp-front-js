@@ -141,7 +141,13 @@ const VeepdotaiCarousel = {
             $(this).siblings("img").attr("id","img-" + id);
             let queryImage = $(this).siblings("img").attr("alt");
             document.getElementById("query").value = queryImage;
-            $("#carousel-form").show();
+            
+            //$("#carousel-form").show();
+
+            $("#carousel-form").modal({
+                clickClose: true,
+                showClose: false
+            });
         });
     },
 
@@ -151,7 +157,7 @@ const VeepdotaiCarousel = {
     
             $(".widget .splide").remove();
     
-            $("form").hide();
+            $.modal.close();
     
             const query = document.getElementById("query").value;
             
