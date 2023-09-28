@@ -215,23 +215,65 @@ const VeepdotaiCarousel = {
 
         $("#validation").click(function(){
             let url = $(".is-active").children("img").attr("src");
+            let query = document.getElementById("query").value;
             $(".widget img:first").attr("src",url);
             $(".widget img:first").attr("srcset", url + " 2048w");
-            $(".widget img:first").attr("alt",document.getElementById("query").value);
+            $(".widget img:first").attr("alt", query);
             $(".widget .splide").remove();
             $(".widget img:first").show();
+
+            let postId = VeepdotaiCarousel.getPostId();
+
+            ajax_save_featured_image(url, query, postId);
         });
     },
 
     widget: function(){
-        this.initWidget(); // OK
+        this.initWidget();
         
         this.initClick();
         
         this.initForm();
+    },
+
+    getPostId: function(){
+        let str = $("body").attr("class");
+        let num = str.search("postid-");
+        
+        str = str.slice(num+7);
+        num = str.search(" ");
+        
+        str = str.slice(0, num);
+        num = parseInt(str);
+
+        return num;
     }
 }
 
 $(document).ready(function(){
     VeepdotaiCarousel.widget();   
 });
+
+function ajax_save_featured_image(src, alt, postId){
+    let fd = new FormData();
+
+    fd.append( 'src', src );
+    fd.append( 'alt', alt );
+    fd.append( 'postId', postId );
+
+    fd.append( 'action', 'save_featured_image' );
+    fd.append( 'security', MyAjax.security );
+
+    jQuery.ajax(
+        {
+            url: MyAjax.ajaxurl,
+            data: fd,
+            processData: false,
+            contentType: false,
+            type: 'POST',
+            success: function (response) {
+                console.log( response );
+            }
+        }
+    );
+}
