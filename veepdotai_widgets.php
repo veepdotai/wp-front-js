@@ -60,7 +60,7 @@ function save_featured_image_callback(){
     $alt = $_POST['alt'];
     $postId = $_POST['postId'];
 
-    $response = media_sideload_image( '', 0, $alt, 'id' );
+    $response = media_sideload_image( $src, 0, $alt, 'id' );
 
     if (is_int($response)){
         $imageId = $response;
