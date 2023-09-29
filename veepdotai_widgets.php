@@ -35,9 +35,9 @@ function veepdotai_widgets_enqueue_script() {
 
     wp_enqueue_script( 'my-veepdotai-widgets-js-loader', plugins_url( '/veepdotai_widgets/public/assets/carousel/js/loader.js' ), true );
     wp_enqueue_script( 'my-veepdotai-widgets-js-carousel', plugins_url( '/veepdotai_widgets/public/assets/carousel/js/carousel.js' ), true );
-    wp_enqueue_script( 'my-veepdotai-widgets-js-staticJson', plugins_url( '/veepdotai_widgets//public/assets/carousel/js/staticJson.js' ), true );
+    wp_enqueue_script( 'my-veepdotai-widgets-js-staticJson', plugins_url( '/veepdotai_widgets/public/assets/carousel/js/staticJson.js' ), true );
 
-    wp_enqueue_script( 'my-veepdotai-widgets-js-inline-editor', plugins_url( '/veepdotai_widgets//public/assets/inline-editor/js/inline-editor.js' ), true );
+    wp_enqueue_script( 'my-veepdotai-widgets-js-inline-editor', plugins_url( '/veepdotai_widgets/public/assets/inline-editor/js/inline-editor.js' ), true );
 
     wp_localize_script(
         'my-veepdotai-widgets-js-loader',
@@ -56,11 +56,16 @@ add_action( 'wp_ajax_save_featured_image', 'save_featured_image_callback' );
 add_action( 'wp_ajax_save_article_inline', 'save_article_inline_callback' );
 
 function save_featured_image_callback(){
-    $src = $_POST['src'];
-    $alt = $_POST['alt'];
+    $url = $_POST['src'];
+    $title = $_POST['alt'];
     $postId = $_POST['postId'];
+    $isUnsplash = $_POST['isUnsplash'];
 
-    $response = media_sideload_image( $src, 0, $alt, 'id' );
+    if ($isUnsplash){
+        $url = $url . '&.png';
+    }
+
+    $response = media_sideload_image( $url, 0, $title, 'id' );
 
     if (is_int($response)){
         $imageId = $response;

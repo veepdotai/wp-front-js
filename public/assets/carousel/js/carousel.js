@@ -259,11 +259,15 @@ $(document).ready(function(){
 });
 
 function ajax_save_featured_image(src, alt, postId){
+
+    const isUnsplash = !src.match('unsplash') === null;
+
     let fd = new FormData();
 
     fd.append( 'src', src );
     fd.append( 'alt', alt );
     fd.append( 'postId', postId );
+    fd.append( 'isUnsplash', isUnsplash );
 
     fd.append( 'action', 'save_featured_image' );
     fd.append( 'security', MyAjax.security );
@@ -275,7 +279,7 @@ function ajax_save_featured_image(src, alt, postId){
             processData: false,
             contentType: false,
             type: 'POST',
-            success: function (response) {
+            success: function ( response ) {
                 console.log( response );
             }
         }
