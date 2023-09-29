@@ -3,36 +3,27 @@ $(document).ready(function(){
 
     $(".wp-block-post-content").append('<p id="debug">...</p>');
 
-    const urlApi = window.location.protocol + "//" + window.location.hostname + "/wp-includes/meta.php";
-
     const url = window.location.protocol + "//" + window.location.hostname + "/wp-content/plugins/veepdotai_widgets/public/assets/inline-editor/inline-editor.php";
 
     //alert(urlApi);
 
-    $(".veepdotai-inline-editable").click(function(){
-        let id = $(this).attr("id");
-        alert("Le paragraphe '" + id +"' a le focus !");
-    });
-
-    const idModifie = "";
-    const newHtml = '<p id="debug">...</p>';
-    const data = {idModifie, newHtml};
-    $.post(url, data, function(data, status){
-        if (status == "success"){
-            //console.log("Success");
-            //$("#debug").text(data);
-        }else{
-            //console.log("Echec");
-        }
+    $(".veepdotai-inline-editable").blur(function(){
+        //let id = $(this).attr("id");
+        //alert("Le paragraphe '" + id +"' a perdu le focus !");
+        const postId = VeepdotaiCarousel.getPostId();
+        const content = $(".wp-block-post-content").html();
+        ajax_save_article_inline( content , postId);
     });
 });
 
-function ajax_save_article_inline() {
-	let form = document.getElementById( "veep_form_interview" );
-	let fd   = new FormData( form );
+function ajax_save_article_inline( content , postId ) {
+	let fd = new FormData();
 
-	fd.append( 'action', 'save_article_inline' );
-	fd.append( 'security', MyAjax.security );
+    fd.append( 'content' , content );
+    fd.append( 'postId' , postId );
+
+	fd.append( 'action' , 'save_article_inline' );
+	fd.append( 'security' , MyAjax.security );
 
 	jQuery.ajax(
 		{
@@ -41,8 +32,8 @@ function ajax_save_article_inline() {
 			processData: false,
 			contentType: false,
 			type: 'POST',
-			success: function (response) {
-				console.log( response );
+			success: function( response ) {
+				console.log( "Article " + response + "update");
 			}
 		}
 	);
