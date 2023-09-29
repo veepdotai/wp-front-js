@@ -170,7 +170,9 @@ const VeepdotaiCarousel = {
             }
 
             if (staticMode) {
-                $("#debug").text("STATIC MODE - request: Paysage");
+                //$("#debug").text("STATIC MODE - request: Paysage");
+                console.log("STATIC MODE - request: Paysage");
+                
                 let json;
                 switch(api){
                     case "pexels":
@@ -191,7 +193,9 @@ const VeepdotaiCarousel = {
                     if (status == "success"){
                         VeepdotaiCarousel.processJson(json);
                     }else{
-                        $("#debug").append("ERROR");
+                        //$("#debug").append("ERROR: la requête api n'est pas passée");
+                        console.log("ERROR: la requête api n'est pas passée");
+                        console.log(json);
                     }
                 });
             }
