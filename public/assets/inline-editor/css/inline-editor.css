@@ -1,0 +1,19 @@
+#inline-editor-btn-container {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+}
+
+#inline-editor-validation {
+    display: inline-block;
+    background-color: green;
+    cursor: pointer;
+    width:fit-content;
+}
+
+#inline-editor-annulation {
+    display: inline-block;
+    background-color: red;
+    cursor: pointer;
+    width:fit-content;
+}
