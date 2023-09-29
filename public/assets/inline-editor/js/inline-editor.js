@@ -16,7 +16,6 @@ const InlineEditor = {
 		$("#inline-editor-validation").click(function(){
 			let content = $(".wp-block-post-content").html();
 			ajax_save_article_inline( content , postId);
-			$("#inline-editor-btn-container").remove();
 		});
 		$("#inline-editor-annulation").click(function(){
 			$("#inline-editor-btn-container").remove();
@@ -31,7 +30,7 @@ const InlineEditor = {
 
 		$(".veepdotai-inline-editable").focus(function(){
 			if (!InlineEditor.editMode){
-				edition = true;
+				InlineEditor.editMode = true;
 				const postId = VeepdotaiCarousel.getPostId();
 				InlineEditor.createEditorBtns(postId);
 			}
@@ -61,6 +60,8 @@ function ajax_save_article_inline( content , postId ) {
 			type: 'POST',
 			success: function( response ) {
 				console.log( "Article " + response + "update");
+				$("#inline-editor-btn-container").remove();
+				location.reload();
 			}
 		}
 	);
