@@ -23,7 +23,8 @@ function veepdotai_widgets_enqueue_style() {
     wp_enqueue_style( 'cdn-css-jquery.modal', 'https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css', false);
     wp_enqueue_style( 'splidejs-css-splide-4.1.4', 'https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css', false );
     wp_enqueue_style( 'my-veepdotai-widgets-css-carousel', plugins_url('/veepdotai_widgets/public/assets/carousel/css/carousel.css'), false );
-}
+    wp_enqueue_style( 'my-veepdotai-widgets-css-inline-editor' , plugins_url('/veepdotai_widgets/public/assets/inline-editor/css/inline-editor.css'), false);
+}                                                                                               
 
 function veepdotai_widgets_enqueue_script() {
     wp_enqueue_script( 'cdn-splidejs-js-splide-4.1.4', 'https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js', true );

@@ -1,19 +1,46 @@
+
+const InlineEditor = {
+
+	editMode : false,
+
+	createEditorBtns: function(postId){
+		const str = `
+			<div id="inline-editor-btn-container">
+				<button id="inline-editor-validation">Valider</button>
+
+				<button id="inline-editor-annulation">Annuler</button>
+			</div>
+		`; 
+		$("body").append(str);
+
+		$("#inline-editor-validation").click(function(){
+			let content = $(".wp-block-post-content").html();
+			ajax_save_article_inline( content , postId);
+			$("#inline-editor-btn-container").remove();
+		});
+		$("#inline-editor-annulation").click(function(){
+			$("#inline-editor-btn-container").remove();
+			location.reload();
+		});
+	},
+
+	widget: function(){
+		$(".wp-block-post-content .veepdotai-inline-editable").attr("contenteditable","true");
+	
+		//$(".wp-block-post-content").append('<p id="debug">...</p>');
+
+		$(".veepdotai-inline-editable").focus(function(){
+			if (!InlineEditor.editMode){
+				edition = true;
+				const postId = VeepdotaiCarousel.getPostId();
+				InlineEditor.createEditorBtns(postId);
+			}
+		});
+	}
+}
+
 $(document).ready(function(){
-    $(".wp-block-post-content .veepdotai-inline-editable").attr("contenteditable","true");
-
-    $(".wp-block-post-content").append('<p id="debug">...</p>');
-
-    const url = window.location.protocol + "//" + window.location.hostname + "/wp-content/plugins/veepdotai_widgets/public/assets/inline-editor/inline-editor.php";
-
-    //alert(urlApi);
-
-    $(".veepdotai-inline-editable").blur(function(){
-        //let id = $(this).attr("id");
-        //alert("Le paragraphe '" + id +"' a perdu le focus !");
-        const postId = VeepdotaiCarousel.getPostId();
-        const content = $(".wp-block-post-content").html();
-        ajax_save_article_inline( content , postId);
-    });
+	InlineEditor.widget();
 });
 
 function ajax_save_article_inline( content , postId ) {
