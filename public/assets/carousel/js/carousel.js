@@ -1,13 +1,7 @@
 // Permet d'échanger entre un mode static avec des données locales et un mode en ligne où les requêtes sont faites aux api
-const staticMode = true;
+const staticMode = false;
 
-const pathToCarousel = window.location.protocol + "//" + window.location.hostname + "/tests/carousel";
-
-if (!staticMode){
-    // A remplacer par ses propres clés
-    var apiKeyPexels = pexelsKey;
-    var apiKeyUnsplash = unsplashKey;
-}
+const pathToPlugin = "/wp-content/plugins/veepdotai_widgets";
 
 const VeepdotaiCarousel = { 
 
@@ -188,16 +182,7 @@ const VeepdotaiCarousel = {
                 VeepdotaiCarousel.processJson(json);
             
             }else {
-                const data = {query, api, apiKeyPexels, apiKeyUnsplash};
-                $.post(pathToCarousel + "/getJson.php", data, function(json, status){ 
-                    if (status == "success"){
-                        VeepdotaiCarousel.processJson(json);
-                    }else{
-                        //$("#debug").append("ERROR: la requête api n'est pas passée");
-                        console.log("ERROR: la requête api n'est pas passée");
-                        console.log(json);
-                    }
-                });
+                ajax_get_json_api(query, api);
             }
         });
     },
@@ -280,7 +265,31 @@ function ajax_save_featured_image(src, alt, postId){
             contentType: false,
             type: 'POST',
             success: function ( response ) {
-                console.log( response );
+                console.log( 'Image saved' );
+            }
+        }
+    );
+}
+
+function ajax_get_json_api(query, api){
+    let fd = new FormData();
+
+    fd.append('query', query);
+    fd.append('api', api);
+
+    fd.append( 'action', 'get_json_api' );
+    fd.append( 'security', MyAjax.security );
+
+    jQuery.ajax(
+        {
+            url: MyAjax.ajaxurl,
+            data: fd,
+            processData: false,
+            contentType: false,
+            type: 'POST',
+            success: function ( response ) {
+                console.log( "reponse: " + response );
+                VeepdotaiCarousel.processJson(response.substr(0,response.length-1));
             }
         }
     );
