@@ -12,6 +12,11 @@ Version: 0.0.2
 Author URI: http://www.veep.ai
 */
 
+require 'vendor/autoload.php';
+
+use ImgFinder\Repository\PexelsRepository;
+use ImgFinder\Repository\UnsplashRepository;
+
 if (! defined('WPINC')) {
     die;
 }
@@ -71,7 +76,7 @@ function save_featured_image_callback(){
         $imageId = $response;
         $response = set_post_thumbnail($postId, $imageId);
     }
-    //echo $response;
+    echo $response;
 }
 
 function save_article_inline_callback(){
@@ -83,15 +88,10 @@ function save_article_inline_callback(){
         'post_content'  => $content
     );
 
-    $response = wp_update_post( $postarr);
+    $response = wp_update_post($postarr);
 
-    //echo $response;
+    echo $response;
 }
-
-require 'vendor/autoload.php';
-
-use ImgFinder\Repository\PexelsRepository;
-use ImgFinder\Repository\UnsplashRepository;
 
 function get_json_api_callback(){
 

@@ -1,8 +1,6 @@
 // Permet d'échanger entre un mode static avec des données locales et un mode en ligne où les requêtes sont faites aux api
 const staticMode = false;
 
-const pathToPlugin = "/wp-content/plugins/veepdotai_widgets";
-
 const VeepdotaiCarousel = { 
 
     /**
@@ -95,7 +93,7 @@ const VeepdotaiCarousel = {
      */
     formStr: function(defaultQuery){
         let str = `
-            <form id="carousel-form" method="get">
+            <form id="carousel-form" method="post">
                 <input id="query" type="text" name="recherche" value="${defaultQuery}"><br>
                 <input id="api-pex" type="radio" name="api" value="pexels">
                 <label for="api-pex">Pexels</label><br>
@@ -135,8 +133,6 @@ const VeepdotaiCarousel = {
             $(this).siblings("img").attr("id","img-" + id);
             let queryImage = $(this).siblings("img").attr("alt");
             document.getElementById("query").value = queryImage;
-            
-            //$("#carousel-form").show();
 
             $("#carousel-form").modal({
                 clickClose: true,
@@ -236,6 +232,17 @@ const VeepdotaiCarousel = {
         num = parseInt(str);
 
         return num;
+    },
+
+    getLoadingModal: function(){
+        let modal = 
+            `<div id="loading-modal">
+                <p><b>Enregistrement de l'image</b></p>
+                <p><b>Ne pas recharger la page</b></p>
+                <p>...</p>
+            </div>`
+        ;
+        return modal;
     }
 }
 
@@ -244,6 +251,14 @@ $(document).ready(function(){
 });
 
 function ajax_save_featured_image(src, alt, postId){
+
+    $("body").append(VeepdotaiCarousel.getLoadingModal());
+    $("#loading-modal").hide();
+    $("#loading-modal").modal({
+        escapeClose: false,
+        clickClose: false,
+        showClose: false
+    });
 
     const isUnsplash = !src.match('unsplash') === null;
 
@@ -265,7 +280,8 @@ function ajax_save_featured_image(src, alt, postId){
             contentType: false,
             type: 'POST',
             success: function ( response ) {
-                console.log( 'Image saved' );
+                $.modal.close();
+                console.log(response);
             }
         }
     );
