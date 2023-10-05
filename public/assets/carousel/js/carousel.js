@@ -305,7 +305,7 @@ function ajax_get_json_api(query, api){
             type: 'POST',
             success: function ( response ) {
                 console.log( "reponse: " + response );
-                VeepdotaiCarousel.processJson(response.substr(0,response.length-1));
+                VeepdotaiCarousel.processJson(response);
             }
         }
     );
