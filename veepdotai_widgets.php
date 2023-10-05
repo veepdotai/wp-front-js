@@ -77,6 +77,7 @@ function save_featured_image_callback(){
         $response = set_post_thumbnail($postId, $imageId);
     }
     echo $response;
+    die;
 }
 
 function save_article_inline_callback(){
@@ -91,6 +92,7 @@ function save_article_inline_callback(){
     $response = wp_update_post($postarr);
 
     echo $response;
+    die;
 }
 
 function get_json_api_callback(){
@@ -136,6 +138,7 @@ function get_json_api_callback(){
     $imagesUrls = $response->toArray();
     
     echo json_encode($imagesUrls);
+    die;
 }
 
 ?>
