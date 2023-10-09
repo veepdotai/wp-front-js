@@ -3,6 +3,11 @@ const InlineEditor = {
 
 	editMode : false,
 
+	inlineEditorInit: function(){
+		$(".veep_para").attr("contenteditable", "true");
+		$(".veepdotai-inline-editable").attr("contenteditable","true");
+	},
+
 	createEditorBtns: function(postId){
 		const str = `
 			<div id="inline-editor-btn-container">
@@ -24,9 +29,7 @@ const InlineEditor = {
 	},
 
 	widget: function(){
-		$(".wp-block-post-content .veepdotai-inline-editable").attr("contenteditable","true");
-	
-		//$(".wp-block-post-content").append('<p id="debug">...</p>');
+		InlineEditor.inlineEditorInit();
 
 		$(".veepdotai-inline-editable").focus(function(){
 			if (!InlineEditor.editMode){
