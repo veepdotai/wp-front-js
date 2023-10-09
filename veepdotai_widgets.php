@@ -60,8 +60,6 @@ add_action( 'wp_ajax_save_article_inline', 'save_article_inline_callback' );
 
 add_action( 'wp_ajax_get_json_api', 'get_json_api_callback' );
 
-add_action( 'wp_ajax_is_new_image', 'is_new_image_callback' );
-
 function save_featured_image_callback(){
     $url = $_POST['src'];
     $alt = $_POST['alt'];
@@ -72,16 +70,20 @@ function save_featured_image_callback(){
         $url = $url . '&.png';
     }
 
-    $response = media_sideload_image( $url, 0, $url, 'id' );
-
-    if (is_int($response)){
-        $imageId = $response;
-        update_post_meta($imageId, '_wp_attachment_image_alt', $alt);
-        //update_post_meta($imageId, 'url_origin', $url);
-        set_post_thumbnail($postId, $imageId);
-        $response = get_post_meta($imageId, '_source_url');
+    $isAlreadyLoaded = isAlreadyLoaded($url);
+    
+    if ($isAlreadyLoaded){
+        $imageId = $isAlreadyLoaded;
+    }else {
+        $imageId = media_sideload_image( $url, 0, $url, 'id' );
     }
-    echo json_encode($response);
+
+    if (is_int($imageId)){
+        update_post_meta($imageId, '_wp_attachment_image_alt', $alt);
+        set_post_thumbnail($postId, $imageId);
+    }
+    
+    echo $isAlreadyLoaded;
     die;
 }
 
@@ -146,21 +148,17 @@ function get_json_api_callback(){
     die;
 }
 
-function is_new_image_callback(){
-    $newUrl = $_POST["url"];
-    $postId = $_POST["postId"];
-
+function isAlreadyLoaded($newUrl){
     $args = array(
         'post_type' => 'attachment',
-        'post_status' => 'any',  // Spécifie le type de contenu comme "attachment" (pièces jointes)
-        'posts_per_page' => -1       // Récupère tous les éléments (images)
+        'post_status' => 'any',
+        'posts_per_page' => -1
     );
 
     $query = new WP_Query($args);
     
-    $is_new = true;
     $newImageId = 0;
-
+    
     if($query->have_posts()) {
         while ($query->have_posts()) {
             $query->the_post();
@@ -169,20 +167,14 @@ function is_new_image_callback(){
             
             $urlSource = get_post_meta($imageId, '_source_url')[0];
             $urlSource = str_replace("\\","",$urlSource);
-
+            
             if ($urlSource === $newUrl){
-                $is_new = false;
                 $newImageId = $imageId; 
             }
         }
     }
-
-    if (!($is_new)){
-        set_post_thumbnail($postId, $newImageId);
-    }
     
-    echo $is_new;
-    die;
+    return $newImageId;
 }
 
 ?>

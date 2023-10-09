@@ -209,8 +209,7 @@ const VeepdotaiCarousel = {
 
             let postId = VeepdotaiCarousel.getPostId();
 
-            //ajax_save_featured_image(url, query, postId);
-            ajax_is_new_image(url, query, postId);
+            ajax_save_featured_image(url, query, postId);
         });
     },
 
@@ -287,7 +286,13 @@ function ajax_save_featured_image(src, alt, postId){
             type: 'POST',
             success: function ( response ) {
                 $.modal.close();
-                console.log("Nouvelle image enregistrée : " + response);
+
+                /*console.log(response);
+                if (parseInt(response)){
+                    console.log("Image déjà enregistrée");
+                }else{
+                    console.log("Nouvelle image enregistrée");
+                }*/
             }
         }
     );
@@ -312,34 +317,6 @@ function ajax_get_json_api(query, api){
             success: function ( response ) {
                 //console.log( "reponse: " + response );
                 VeepdotaiCarousel.processJson(response);
-            }
-        }
-    );
-}
-
-function ajax_is_new_image(url, query, postId){
-    let fd = new FormData();
-
-    fd.append( 'url', url );
-    fd.append( 'postId', postId );
-
-    fd.append( 'action', 'is_new_image' );
-    fd.append( 'security', MyAjax.security );
-
-    jQuery.ajax(
-        {
-            url: MyAjax.ajaxurl,
-            data: fd,
-            processData: false,
-            contentType: false,
-            type: 'POST',
-            success: function ( response ) {
-                console.log( response );
-                if(response){
-                    ajax_save_featured_image(url, query, postId);
-                }else{
-                    console.log('Cette image est déjà enregistrée');
-                }
             }
         }
     );
