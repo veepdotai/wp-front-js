@@ -62,7 +62,7 @@ function ajax_save_article_inline( content , postId ) {
 			contentType: false,
 			type: 'POST',
 			success: function( response ) {
-				console.log( "Article " + response + " updated");
+				//console.log( "Article " + response + " updated");
 				$("#inline-editor-btn-container").remove();
 				location.reload();
 			}
