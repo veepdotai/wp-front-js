@@ -21,9 +21,6 @@ if (! defined('WPINC')) {
     die;
 }
 
-$pexelsKey = PEXELS_API_KEY;        //  API key to change
-$unsplashKey = UNSPLASH_API_KEY;    //  API key to change
-
 define('VEEPDOTAI_WIDGETS_VERSION', '1.0.0');
 define('VEEPDOTAI_WIDGETS_PLUGIN_VERSION', '1.0.0');
 
@@ -106,6 +103,9 @@ function save_article_inline_callback(){
 }
 
 function get_json_api_callback(){
+    $pexelsKey = PEXELS_API_KEY;        //  API key to change
+    $unsplashKey = UNSPLASH_API_KEY;    //  API key to change
+    
     $nbImage = 2;
 
     $query = $_POST["query"];
