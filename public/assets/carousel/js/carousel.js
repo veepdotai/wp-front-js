@@ -247,8 +247,13 @@ const VeepdotaiCarousel = {
 }
 
 $(document).ready(function(){
-    VeepdotaiCarousel.widget();   
+    VeepdotaiCarousel.widget();
 });
+
+/*  *******************************************************************************************************************************************
+ *  Fonctions ajax :
+ *  *******************************************************************************************************************************************
+ */ 
 
 function ajax_save_featured_image(src, alt, postId){
 
@@ -260,7 +265,7 @@ function ajax_save_featured_image(src, alt, postId){
         showClose: false
     });
 
-    const isUnsplash = !src.match('unsplash') === null;
+    let isUnsplash = !(src.match('unsplash') === null);
 
     let fd = new FormData();
 
@@ -281,7 +286,13 @@ function ajax_save_featured_image(src, alt, postId){
             type: 'POST',
             success: function ( response ) {
                 $.modal.close();
-                console.log(response);
+
+                /*console.log(response);
+                if (parseInt(response)){
+                    console.log("Image déjà enregistrée");
+                }else{
+                    console.log("Nouvelle image enregistrée");
+                }*/
             }
         }
     );
@@ -304,7 +315,7 @@ function ajax_get_json_api(query, api){
             contentType: false,
             type: 'POST',
             success: function ( response ) {
-                console.log( "reponse: " + response );
+                //console.log( "reponse: " + response );
                 VeepdotaiCarousel.processJson(response);
             }
         }

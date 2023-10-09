@@ -62,21 +62,28 @@ add_action( 'wp_ajax_get_json_api', 'get_json_api_callback' );
 
 function save_featured_image_callback(){
     $url = $_POST['src'];
-    $title = $_POST['alt'];
+    $alt = $_POST['alt'];
     $postId = $_POST['postId'];
     $isUnsplash = $_POST['isUnsplash'];
-
-    if ($isUnsplash){
+    
+    if ($isUnsplash === "true"){
         $url = $url . '&.png';
     }
 
-    $response = media_sideload_image( $url, 0, $title, 'id' );
-
-    if (is_int($response)){
-        $imageId = $response;
-        $response = set_post_thumbnail($postId, $imageId);
+    $isAlreadyLoaded = isAlreadyLoaded($url);
+    
+    if ($isAlreadyLoaded){
+        $imageId = $isAlreadyLoaded;
+    }else {
+        $imageId = media_sideload_image( $url, 0, $url, 'id' );
     }
-    echo $response;
+
+    if (is_int($imageId)){
+        update_post_meta($imageId, '_wp_attachment_image_alt', $alt);
+        set_post_thumbnail($postId, $imageId);
+    }
+    
+    echo $isAlreadyLoaded;
     die;
 }
 
@@ -139,6 +146,35 @@ function get_json_api_callback(){
     
     echo json_encode($imagesUrls);
     die;
+}
+
+function isAlreadyLoaded($newUrl){
+    $args = array(
+        'post_type' => 'attachment',
+        'post_status' => 'any',
+        'posts_per_page' => -1
+    );
+
+    $query = new WP_Query($args);
+    
+    $newImageId = 0;
+    
+    if($query->have_posts()) {
+        while ($query->have_posts()) {
+            $query->the_post();
+
+            $imageId = get_the_ID();
+            
+            $urlSource = get_post_meta($imageId, '_source_url')[0];
+            $urlSource = str_replace("\\","",$urlSource);
+            
+            if ($urlSource === $newUrl){
+                $newImageId = $imageId; 
+            }
+        }
+    }
+    
+    return $newImageId;
 }
 
 ?>
