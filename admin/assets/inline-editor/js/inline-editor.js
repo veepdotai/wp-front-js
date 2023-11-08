@@ -1,11 +1,11 @@
-const INIT_CLASS = "veep_para"; // La classe des éléments éditables
+const INLINE_EDITOR_CLASS = "veep_para"; // La classe des éléments éditables
 
 const InlineEditor = {
 
 	editMode : false,
 
 	inlineEditorInit: function(){
-		$("." + INIT_CLASS).attr("contenteditable", "true");
+		$("." + INLINE_EDITOR_CLASS).attr("contenteditable", "true");
 	},
 
 	createEditorBtns: function(postId){
@@ -31,7 +31,7 @@ const InlineEditor = {
 	widget: function(){
 		InlineEditor.inlineEditorInit();
 
-		$("." + INIT_CLASS).focus(function(){
+		$("." + INLINE_EDITOR_CLASS).focus(function(){
 			if (!InlineEditor.editMode){
 				InlineEditor.editMode = true;
 				const postId = VeepdotaiCarousel.getPostId();
