@@ -1,7 +1,15 @@
 // Permet d'échanger entre un mode static avec des données locales et un mode en ligne où les requêtes sont faites aux api
 const staticMode = false;
 
-const VeepdotaiCarousel = { 
+/**
+ * Constante définissant sur quel élément HTML sera attaché l'événement onClick qui déclenche le widget
+ * valeurs possibles : 
+ *  "SPAN" (valeur par défaut, le span couvrant la featured image pour un article WP)
+ *  "IMG" (la featured image d'un artictle WP)
+ */
+const CLICK_ELEMENT = "";
+
+const VeepdotaiCarousel = {
 
     /**
      * Fonction qui crée les différentes instances de carrousels et les ajoute à tous les éléments de classe "widget"
@@ -128,10 +136,23 @@ const VeepdotaiCarousel = {
     },
 
     initClick: function(){
-        $(".widget span").click(function(){
+        $(".widget " + ( CLICK_ELEMENT || "SPAN" )).click(function(){
             let id = VeepdotaiCarousel.randomId();
-            $(this).siblings("img").attr("id","img-" + id);
-            let queryImage = $(this).siblings("img").attr("alt");
+            let queryImage;
+
+            switch(CLICK_ELEMENT) {
+                case "IMG":
+                    $(this).attr("id","img-" + id);
+                    queryImage = $(this).attr("alt");
+                break;
+
+                case "SPAN":
+                default:
+                    $(this).siblings("img").attr("id","img-" + id);
+                    queryImage = $(this).siblings("img").attr("alt");
+                break;
+            }
+            
             document.getElementById("query").value = queryImage;
 
             $("#carousel-form").modal({
