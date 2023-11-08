@@ -1,11 +1,11 @@
+const INIT_CLASS = "veep_para"; // La classe des éléments éditables
 
 const InlineEditor = {
 
 	editMode : false,
 
 	inlineEditorInit: function(){
-		$(".veep_para").attr("contenteditable", "true");
-		$(".veepdotai-inline-editable").attr("contenteditable","true");
+		$("." + INIT_CLASS).attr("contenteditable", "true");
 	},
 
 	createEditorBtns: function(postId){
@@ -31,7 +31,7 @@ const InlineEditor = {
 	widget: function(){
 		InlineEditor.inlineEditorInit();
 
-		$(".veepdotai-inline-editable").focus(function(){
+		$("." + INIT_CLASS).focus(function(){
 			if (!InlineEditor.editMode){
 				InlineEditor.editMode = true;
 				const postId = VeepdotaiCarousel.getPostId();
@@ -62,7 +62,6 @@ function ajax_save_article_inline( content , postId ) {
 			contentType: false,
 			type: 'POST',
 			success: function( response ) {
-				//console.log( "Article " + response + " updated");
 				$("#inline-editor-btn-container").remove();
 				location.reload();
 			}
