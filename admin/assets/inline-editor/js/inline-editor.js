@@ -11,9 +11,9 @@ const InlineEditor = {
 	createEditorBtns: function(postId){
 		const str = `
 			<div id="inline-editor-btn-container">
-				<button id="inline-editor-validation">Valider</button>
+				<button id="inline-editor-validation" class="inline-editor-btn color-pr">Valider</button>
 
-				<button id="inline-editor-annulation">Annuler</button>
+				<button id="inline-editor-annulation" class="inline-editor-btn color-sc">Annuler</button>
 			</div>
 		`; 
 		$("body").append(str);
