@@ -101,17 +101,27 @@ const VeepdotaiCarousel = {
      */
     formStr: function(defaultQuery){
         let str = `
-            <form id="carousel-form" method="post">
-                <input id="query" type="text" name="recherche" value="${defaultQuery}"><br>
-                <input id="api-pex" type="radio" name="api" value="pexels">
-                <label for="api-pex">Pexels</label><br>
-                <input id="api-unsp" type="radio" name="api" value="unsplash">
-                <label for="api-unsp">Unsplash</label><br>
-                <input id="api-both" type="radio" name="api" value="both" checked>
-                <label for="api-both">Both</label><br>
-
-                <button type="submit">Lancer recherche</button>
-            </form>
+            <div id="myModal">
+                <div class="modal-header">
+                    <h4 class="modal-title">Sélection d'image</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="carousel-form" method="post">
+                        
+                        <input id="query" type="text" name="recherche" class="max-size form-text" value="${defaultQuery}">
+                        
+                        <div class="form-radios">
+                            <input id="api-pex" type="radio" name="api" value="pexels">
+                            <label for="api-pex">Pexels</label><br>
+                            <input id="api-unsp" type="radio" name="api" value="unsplash">
+                            <label for="api-unsp">Unsplash</label><br>
+                            <input id="api-both" type="radio" name="api" value="both" checked>
+                            <label for="api-both">Both</label><br>
+                        </div>
+                        <button type="submit" class="carousel-btn color-pr max-size">Lancer recherche</button>
+                    </form>
+                <div>
+            </div>
         `;
         return str;
     },
@@ -122,9 +132,9 @@ const VeepdotaiCarousel = {
     createButtons: function(){
         const str = `
             <div id="boutons">
-                <button id="validation">Valider</button>
+                <button id="validation" class="carousel-btn color-pr">Valider</button>
 
-                <button id="annulation">Annuler</button>
+                <button id="annulation" class="carousel-btn color-sc">Annuler</button>
             </div>
         `; 
         $(".splide__track").append(str);
@@ -132,7 +142,7 @@ const VeepdotaiCarousel = {
 
     initWidget: function(){
         $(".widget").append(this.formStr(""));
-        $("#carousel-form").hide();
+        $("#myModal").hide();
     },
 
     initClick: function(){
@@ -155,7 +165,7 @@ const VeepdotaiCarousel = {
             
             document.getElementById("query").value = queryImage;
 
-            $("#carousel-form").modal({
+            $("#myModal").modal({
                 clickClose: true,
                 showClose: false
             });
@@ -260,7 +270,7 @@ const VeepdotaiCarousel = {
             `<div id="loading-modal">
                 <p><b>Enregistrement de l'image</b></p>
                 <p><b>Ne pas recharger la page</b></p>
-                <p>...</p>
+                <p><b>...</b></p>
             </div>`
         ;
         return modal;

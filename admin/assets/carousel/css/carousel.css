@@ -1,6 +1,6 @@
 .splide__slide img {
     display: block;
-    width:100%;
+    width: 100%;
 }
 
 .splide__slide {
@@ -9,25 +9,13 @@
 
 .splide__track {
     position: relative;
-    background-color: grey;
-}
-
-#annulation {
-    display: inline-block;
-    background-color: red;
-    cursor: pointer;
-    width:fit-content;
-}
-
-#validation {
-    display: inline-block;
-    background-color: green;
-    cursor: pointer;
-    width:fit-content;
+    /*background-color: grey;*/
 }
 
 #boutons {
     position: absolute;
+    margin-bottom: 7px;
+    margin-right: 7px;
     bottom: 0;
     right: 0;
 }
@@ -35,9 +23,67 @@
 #carousel-form {
     border-radius: 5px;
     padding: 5px;
-    background-color: grey;
+    line-height: 1.8;
 }
 
 .widget {
     cursor: pointer;
+}
+
+.carousel-btn {
+    border-style: none;
+    border-radius: 7px;
+    cursor: pointer;
+    padding: 8px 10px;
+    text-align: center;
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 600;
+}
+
+.color-pr {
+    background-color: #0d6efd;
+}
+
+.color-pr:hover {
+    background-color: #094bae;
+}
+
+.color-sc {
+    background-color: #6c757d;
+}
+
+.color-sc:hover {
+    background-color: #565e64;
+}
+
+.max-size {
+    width: 100%;
+}
+
+.form-text {
+    border-style: solid;
+    border-width: 2px;
+    width: 92%;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    background-color: white;
+    background-clip: padding-box;
+    border-radius: 5px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.modal-title {
+    margin: 0;
+    margin-bottom: 5px;
+}
+
+.form-radios {
+    margin: 10px 0px;
+}
+
+#loading-modal {
+    text-align: center;
 }
