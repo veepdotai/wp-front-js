@@ -1,18 +1,18 @@
-// Permet d'échanger entre un mode static avec des données locales et un mode en ligne où les requêtes sont faites aux api
+// Constant used to switch beteween the static mode for testing purposes and the dynamic mode
 const staticMode = false;
 
 /**
- * Constante définissant sur quel élément HTML sera attaché l'événement onClick qui déclenche le widget
- * valeurs possibles : 
- *  "SPAN" (valeur par défaut, le span couvrant la featured image pour un article WP)
- *  "IMG" (la featured image d'un artictle WP)
+ * Constant used to define which html element will trigger the widget.
+ * possible values :
+ *  "SPAN" (default value, refers to the span that cover the featured image in a WP post)
+ *  "IMG" (the featured image itself)
  */
 const CLICK_ELEMENT = "";
 
 const VeepdotaiCarousel = {
 
     /**
-     * Fonction qui crée les différentes instances de carrousels et les ajoute à tous les éléments de classe "widget"
+     * This function create the carousel widget on every element of the widget class
      * @param {Array} images 
      * @param {int} nbImages 
      */
@@ -37,7 +37,7 @@ const VeepdotaiCarousel = {
     },
 
     /**
-     * Fonction qui fabrique la structure HTML d'un carrousel en chaîne de caracteres
+     * This function create the html structure of a carousel as a string
      * @param {string} id 
      * @param {int} nbImages 
      * @returns {string}
@@ -63,7 +63,7 @@ const VeepdotaiCarousel = {
     },
 
     /**
-     * Fonction qui renvoie un id aléatoire
+     * This function return a random generated id
      * @returns {string}
      */
     randomId: function(){
@@ -73,7 +73,7 @@ const VeepdotaiCarousel = {
     },
 
     /**
-     * Fonction qui prend une chaine de caractere en format JSON et renvoi l'array contenant les objets photos
+     * This function return an array containing all the objects extracted from a string in json format
      * @param {string} json 
      * @returns {Array} 
      */
@@ -83,10 +83,10 @@ const VeepdotaiCarousel = {
     },
 
     /**
-     * Fonction qui rempli un carousel avec les images passées en param
-     * @param {String} id 
-     * @param {Integer} nbImages 
-     * @param {Object[]} images 
+     * This function fill the carousel with images
+     * @param {String} id : the carousel unique id
+     * @param {Integer} nbImages : number of images that the carousel can display
+     * @param {Object[]} images : images to display
      */
     fillSplide: function(id, nbImages, images) {
         for (let i=0; i<nbImages; i++) {
@@ -97,7 +97,9 @@ const VeepdotaiCarousel = {
 
     /**
      * Fonction qui fabrique la structure HTML du formulaire en chaîne de caracteres
-     * @param {string} defaultQuery 
+     * This function create the html structure of the form to search images
+     * @param {string} defaultQuery
+     * @returns {string} the html structure as a string
      */
     formStr: function(defaultQuery){
         let str = `
@@ -127,7 +129,7 @@ const VeepdotaiCarousel = {
     },
 
     /**
-     * Fonction qui fabrique la structure HTML des boutons d'annulation/validation en chaîne de caracteres et l'ajoute à la page
+     * This function create the html structure of the validation/annulation buttons and add it to the page
      */
     createButtons: function(){
         const str = `
@@ -282,7 +284,7 @@ $(document).ready(function(){
 });
 
 /*  *******************************************************************************************************************************************
- *  Fonctions ajax :
+ *  Ajax functions :
  *  *******************************************************************************************************************************************
  */ 
 

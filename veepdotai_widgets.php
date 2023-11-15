@@ -17,6 +17,10 @@ require 'vendor/autoload.php';
 use ImgFinder\Repository\PexelsRepository;
 use ImgFinder\Repository\UnsplashRepository;
 
+// Don't forget to replace by your api's keys
+define('PEXELS_API_KEY', PEXELS_API_KEY); 
+define('UNSPLASH_API_KEY', UNSPLASH_API_KEY);
+
 if (! defined('WPINC')) {
     die;
 }
@@ -103,8 +107,8 @@ function save_article_inline_callback(){
 }
 
 function get_json_api_callback(){
-    $pexelsKey = PEXELS_API_KEY;        //  API key to change
-    $unsplashKey = UNSPLASH_API_KEY;    //  API key to change
+    $pexelsKey = PEXELS_API_KEY; 
+    $unsplashKey = UNSPLASH_API_KEY;
     
     $nbImage = 2;
 

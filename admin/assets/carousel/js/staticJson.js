@@ -1,5 +1,5 @@
 /**
- * Ce fichier contient des variables avec des flux json pour des tests statiques
+ * This file contains all the varaibles used in carousel's static mode
  */
 
 const staticJson = 
