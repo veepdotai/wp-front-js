@@ -7,7 +7,7 @@ const staticMode = false;
  *  "SPAN" (refers to the span that cover the featured image in a WP post)
  *  "IMG" (default value, the featured image itself)
  */
-const CLICK_ELEMENT = "SPAN";
+const CLICK_ELEMENT = "";
 
 const VeepdotaiCarousel = {
 
