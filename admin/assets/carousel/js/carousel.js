@@ -4,8 +4,8 @@ const staticMode = false;
 /**
  * Constant used to define which html element will trigger the widget.
  * possible values :
- *  "SPAN" (default value, refers to the span that cover the featured image in a WP post)
- *  "IMG" (the featured image itself)
+ *  "SPAN" (refers to the span that cover the featured image in a WP post)
+ *  "IMG" (default value, the featured image itself)
  */
 const CLICK_ELEMENT = "";
 
@@ -153,13 +153,13 @@ const VeepdotaiCarousel = {
             let queryImage;
 
             switch(CLICK_ELEMENT) {
+                default:
                 case "IMG":
                     $(this).attr("id","img-" + id);
                     queryImage = $(this).attr("alt");
                 break;
 
                 case "SPAN":
-                default:
                     $(this).siblings("img").attr("id","img-" + id);
                     queryImage = $(this).siblings("img").attr("alt");
                 break;
