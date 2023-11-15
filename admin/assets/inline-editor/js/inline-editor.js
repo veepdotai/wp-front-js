@@ -1,4 +1,5 @@
-const INLINE_EDITOR_CLASS = "veep_para"; // La classe des éléments éditables ("veep_para" par défaut)
+// This constant define which class will be "editable" ("veep_para by default")
+const INLINE_EDITOR_CLASS = "veep_para";
 
 const InlineEditor = {
 
