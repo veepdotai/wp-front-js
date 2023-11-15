@@ -148,7 +148,7 @@ const VeepdotaiCarousel = {
     },
 
     initClick: function(){
-        $(".widget " + ( CLICK_ELEMENT || "SPAN" )).click(function(){
+        $(".widget " + ( CLICK_ELEMENT || "IMG" )).click(function(){
             let id = VeepdotaiCarousel.randomId();
             let queryImage;
 
@@ -156,7 +156,7 @@ const VeepdotaiCarousel = {
                 default:
                 case "IMG":
                     $(this).attr("id","img-" + id);
-                    queryImage = $(this).attr("alt");
+                    queryImage = document.getElementById("img-"+id).alt;
                 break;
 
                 case "SPAN":
@@ -208,6 +208,7 @@ const VeepdotaiCarousel = {
                         json = staticJson;
                         break;
                 }
+                //$.modal.close();
                 VeepdotaiCarousel.processJson(json);
             
             }else {
@@ -349,6 +350,7 @@ function ajax_get_json_api(query, api){
             type: 'POST',
             success: function ( response ) {
                 //console.log( "reponse: " + response );
+                //$.modal.close();
                 VeepdotaiCarousel.processJson(response);
             }
         }
