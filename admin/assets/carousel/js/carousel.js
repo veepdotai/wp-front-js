@@ -7,7 +7,7 @@ const staticMode = false;
  *  "SPAN" (refers to the span that cover the featured image in a WP post)
  *  "IMG" (default value, the featured image itself)
  */
-const CLICK_ELEMENT = "";
+const CLICK_ELEMENT = "SPAN";
 
 const VeepdotaiCarousel = {
 
@@ -120,7 +120,7 @@ const VeepdotaiCarousel = {
                             <input id="api-both" type="radio" name="api" value="both" checked>
                             <label for="api-both">Both</label><br>
                         </div>
-                        <button type="submit" class="carousel-btn color-pr max-size">Lancer recherche</button>
+                        <button type="submit" class="carousel-btn color-pr max-size"></button>
                     </form>
                 <div>
             </div>
@@ -171,6 +171,9 @@ const VeepdotaiCarousel = {
                 clickClose: true,
                 showClose: false
             });
+
+            $("form button").html("Lancer recherche");
+            $("form button").attr("disabled", false);
         });
     },
 
@@ -180,7 +183,8 @@ const VeepdotaiCarousel = {
     
             $(".widget .splide").remove();
     
-            $.modal.close();
+            $("form button").attr("disabled", true);
+            $("form button").html(`<i class="fa fa-circle-o-notch fa-spin"></i> Recherche`);
     
             const query = document.getElementById("query").value;
             
@@ -208,7 +212,7 @@ const VeepdotaiCarousel = {
                         json = staticJson;
                         break;
                 }
-                //$.modal.close();
+                $.modal.close();
                 VeepdotaiCarousel.processJson(json);
             
             }else {
@@ -350,7 +354,7 @@ function ajax_get_json_api(query, api){
             type: 'POST',
             success: function ( response ) {
                 //console.log( "reponse: " + response );
-                //$.modal.close();
+                $.modal.close();
                 VeepdotaiCarousel.processJson(response);
             }
         }

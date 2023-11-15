@@ -45,7 +45,12 @@
     background-color: #0d6efd;
 }
 
-.color-pr:hover {
+.color-pr:disabled {
+    background-color: #094bae5b;
+    cursor: auto;
+}
+
+.color-pr:enabled:hover {
     background-color: #094bae;
 }
 
@@ -53,7 +58,7 @@
     background-color: #6c757d;
 }
 
-.color-sc:hover {
+.color-sc:enabled:hover {
     background-color: #565e64;
 }
 

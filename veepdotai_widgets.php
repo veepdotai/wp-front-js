@@ -34,6 +34,7 @@ function veepdotai_widgets_enqueue_style()
     wp_enqueue_style('splidejs-css-splide-4.1.4', 'https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css', false);
     wp_enqueue_style('my-veepdotai-widgets-css-carousel', plugins_url('/veepdotai_widgets/admin/assets/carousel/css/carousel.css'), false);
     wp_enqueue_style('my-veepdotai-widgets-css-inline-editor', plugins_url('/veepdotai_widgets/admin/assets/inline-editor/css/inline-editor.css'), false);
+    wp_enqueue_style('cdn-css-font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css', false);
 }
 
 function veepdotai_widgets_enqueue_script()
