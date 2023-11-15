@@ -21,12 +21,21 @@
     background-color: #0d6efd;
 }
 
+.color-pr:disabled {
+    background-color: #094bae5b;
+    cursor: auto;
+}
+
 .color-pr:enabled:hover {
     background-color: #094bae;
 }
 
 .color-sc {
     background-color: #6c757d;
+}
+
+.color-sc:disabled {
+    background-color: #6c757d4a
 }
 
 .color-sc:enabled:hover {

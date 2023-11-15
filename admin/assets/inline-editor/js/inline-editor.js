@@ -21,10 +21,13 @@ const InlineEditor = {
 
 		$("#inline-editor-validation").click(function(){
 			let content = $(".wp-block-post-content").html();
+			$(this).attr('disabled', true);
+			$("#inline-editor-annulation").attr('disabled', true);
 			ajax_save_article_inline( content , postId);
 		});
 		$("#inline-editor-annulation").click(function(){
-			$("#inline-editor-btn-container").remove();
+			$(this).attr('disabled', true);
+			$("#inline-editor-validation").attr('disabled', true);
 			location.reload();
 		});
 	},
@@ -63,7 +66,6 @@ function ajax_save_article_inline( content , postId ) {
 			contentType: false,
 			type: 'POST',
 			success: function( response ) {
-				$("#inline-editor-btn-container").remove();
 				location.reload();
 			}
 		}
