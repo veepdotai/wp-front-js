@@ -21,6 +21,7 @@ const InlineEditor = {
 
 		$("#inline-editor-validation").click(function(){
 			let content = $(".wp-block-post-content").html();
+			content = InlineEditor.extractFirstDiv(content);
 			$(this).attr('disabled', true);
 			$("#inline-editor-annulation").attr('disabled', true);
 			ajax_save_article_inline( content , postId);
@@ -30,6 +31,33 @@ const InlineEditor = {
 			$("#inline-editor-validation").attr('disabled', true);
 			location.reload();
 		});
+	},
+
+	nIndexOf: function(haystack, needle, n){
+		let result;
+		let start = 0;
+		for (let i=0; i<n; i++) {
+			result = haystack.indexOf(needle, start);
+			if (result >= 0) {
+				start = result+1;
+			}
+		}
+		return result;
+	},
+
+	lastIndexOfFirstDiv: function(str) {
+		let index = str.indexOf("</div>");
+		let n;
+		if (index >= 0){
+			n = Array.from(str.slice(0, index).matchAll("<div")).length;
+			index = InlineEditor.nIndexOf(str, "</div>", n) + 6;
+		}
+		return index;
+	},
+
+	extractFirstDiv: function(str) {
+		let index = lastIndexOfFirstDiv(str);
+		return str.slice(index).trim();
 	},
 
 	widget: function(){
