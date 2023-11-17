@@ -6,7 +6,7 @@ const InlineEditor = {
 	editMode : false,
 
 	inlineEditorInit: function(){
-		$("." + INLINE_EDITOR_CLASS).attr("contenteditable", "true");
+		$("." + INLINE_EDITOR_CLASS).attr("contenteditable", true);
 	},
 
 	createEditorBtns: function(postId){
@@ -24,11 +24,13 @@ const InlineEditor = {
 			content = InlineEditor.extractFirstDiv(content);
 			$(this).attr('disabled', true);
 			$("#inline-editor-annulation").attr('disabled', true);
+			$("." + INLINE_EDITOR_CLASS).attr("contenteditable", false);
 			ajax_save_article_inline( content , postId);
 		});
 		$("#inline-editor-annulation").click(function(){
 			$(this).attr('disabled', true);
 			$("#inline-editor-validation").attr('disabled', true);
+			$("." + INLINE_EDITOR_CLASS).attr("contenteditable", false);
 			location.reload();
 		});
 	},
