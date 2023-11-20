@@ -115,7 +115,7 @@ function get_json_api_callback()
 {
     $nbImage = 2;
 
-    $query = $_POST["query"];
+    $query = sanitize_text_field($_POST["query"]);
     $api = [$_POST["api"]];
 
     $settings = [
