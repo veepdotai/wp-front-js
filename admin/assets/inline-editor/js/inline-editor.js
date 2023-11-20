@@ -58,7 +58,7 @@ const InlineEditor = {
 	},
 
 	extractFirstDiv: function(str) {
-		let index = lastIndexOfFirstDiv(str);
+		let index = InlineEditor.lastIndexOfFirstDiv(str);
 		return str.slice(index).trim();
 	},
 
