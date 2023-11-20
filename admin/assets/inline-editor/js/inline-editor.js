@@ -76,7 +76,11 @@ const InlineEditor = {
 }
 
 $(document).ready(function(){
-	InlineEditor.widget();
+	if ($("body").attr("class").includes("logged-in")){
+		InlineEditor.widget();
+	}else{
+		$("." + INLINE_EDITOR_CLASS).attr("contenteditable", false);
+	}
 });
 
 function ajax_save_article_inline( content , postId ) {
