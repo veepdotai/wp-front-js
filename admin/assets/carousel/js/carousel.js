@@ -251,14 +251,6 @@ const VeepdotaiCarousel = {
         });
     },
 
-    widget: function(){
-        this.initWidget();
-        
-        this.initClick();
-        
-        this.initForm();
-    },
-
     getPostId: function(){
         let str = $("body").attr("class");
         let num = str.search("postid-");
@@ -281,11 +273,23 @@ const VeepdotaiCarousel = {
             </div>`
         ;
         return modal;
+    },
+
+    widget: function(){
+        this.initWidget();
+        
+        this.initClick();
+        
+        this.initForm();
     }
 }
 
 $(document).ready(function(){
-    VeepdotaiCarousel.widget();
+    if ($("body").attr("class").includes("logged-in")){
+        VeepdotaiCarousel.widget();
+    }else{
+        $(".widget " + ( CLICK_ELEMENT || "IMG" )).css("cursor","auto");
+    }
 });
 
 /*  *******************************************************************************************************************************************
