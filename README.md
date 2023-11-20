@@ -1,4 +1,4 @@
-# Veep.ai Widgets
+# Veep.ai Front
 
 ## Description
 Ce plugin WordPress a pour but de fournir des outils d'édition rapide d'article.
