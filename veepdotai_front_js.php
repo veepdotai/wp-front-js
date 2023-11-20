@@ -4,8 +4,8 @@
  * @version 1.0.0
  */
 /*
-Plugin Name: veepdotai_front
-Plugin URI: http://wordpress.org/plugins/veepdotai_front/
+Plugin Name: veepdotai_front_js
+Plugin URI: http://wordpress.org/plugins/veepdotai_front_js/
 Description: Adds widgets to veepdotai
 Author: Thomas CARREAU
 Version: 0.0.2
@@ -21,33 +21,33 @@ use ImgFinder\Repository\UnsplashRepository;
 define('PEXELS_API_KEY', 'MY_OWN_PERSONAL_PEXELS_KEY'); // value to change
 define('UNSPLASH_API_KEY', 'MY_OWN_PERSONAL_UNSPLASH_KEY'); // value to change
 
-define('VEEPDOTAI_FRONT_VERSION', '1.0.0');
-define('VEEPDOTAI_FRONT_PLUGIN_VERSION', '1.0.0');
+define('VEEPDOTAI_FRONT_JS_VERSION', '1.0.0');
+define('VEEPDOTAI_FRONT_JS_PLUGIN_VERSION', '1.0.0');
 
 if (!defined('WPINC')) {
     die;
 }
 
-function veepdotai_front_enqueue_style()
+function veepdotai_front_js_enqueue_style()
 {
     wp_enqueue_style('cdn-css-jquery.modal', 'https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css', false);
     wp_enqueue_style('splidejs-css-splide-4.1.4', 'https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css', false);
-    wp_enqueue_style('my-veepdotai-front-css-carousel', plugins_url('/veepdotai_front/admin/assets/carousel/css/carousel.css'), false);
-    wp_enqueue_style('my-veepdotai-front-css-inline-editor', plugins_url('/veepdotai_front/admin/assets/inline-editor/css/inline-editor.css'), false);
+    wp_enqueue_style('my-veepdotai-front-css-carousel', plugins_url('/veepdotai_front_js/admin/assets/carousel/css/carousel.css'), false);
+    wp_enqueue_style('my-veepdotai-front-css-inline-editor', plugins_url('/veepdotai_front_js/admin/assets/inline-editor/css/inline-editor.css'), false);
     wp_enqueue_style('cdn-css-font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css', false);
 }
 
-function veepdotai_front_enqueue_script()
+function veepdotai_front_js_enqueue_script()
 {
     wp_enqueue_script('cdn-splidejs-js-splide-4.1.4', 'https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js', true);
-    wp_enqueue_script('my-veepdotai-front-js-jquery-3.7.1', plugins_url('/veepdotai_front/admin/assets/carousel/js/jquery-3.7.1.js'), true);
+    wp_enqueue_script('my-veepdotai-front-js-jquery-3.7.1', plugins_url('/veepdotai_front_js/admin/assets/carousel/js/jquery-3.7.1.js'), true);
     wp_enqueue_script('cdn-js-jquery.modal', 'https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js', true);
 
-    wp_enqueue_script('my-veepdotai-front-js-loader', plugins_url('/veepdotai_front/admin/assets/carousel/js/loader.js'), true);
-    wp_enqueue_script('my-veepdotai-front-js-carousel', plugins_url('/veepdotai_front/admin/assets/carousel/js/carousel.js'), true);
-    wp_enqueue_script('my-veepdotai-front-js-staticJson', plugins_url('/veepdotai_front/admin/assets/carousel/js/staticJson.js'), true);
+    wp_enqueue_script('my-veepdotai-front-js-loader', plugins_url('/veepdotai_front_js/admin/assets/carousel/js/loader.js'), true);
+    wp_enqueue_script('my-veepdotai-front-js-carousel', plugins_url('/veepdotai_front_js/admin/assets/carousel/js/carousel.js'), true);
+    wp_enqueue_script('my-veepdotai-front-js-staticJson', plugins_url('/veepdotai_front_js/admin/assets/carousel/js/staticJson.js'), true);
 
-    wp_enqueue_script('my-veepdotai-front-js-inline-editor', plugins_url('/veepdotai_front/admin/assets/inline-editor/js/inline-editor.js'), true);
+    wp_enqueue_script('my-veepdotai-front-js-inline-editor', plugins_url('/veepdotai_front_js/admin/assets/inline-editor/js/inline-editor.js'), true);
 
     wp_localize_script(
         'my-veepdotai-front-js-loader',
@@ -59,8 +59,8 @@ function veepdotai_front_enqueue_script()
     );
 }
 
-add_action('wp_enqueue_scripts', 'veepdotai_front_enqueue_style');
-add_action('wp_enqueue_scripts', 'veepdotai_front_enqueue_script');
+add_action('wp_enqueue_scripts', 'veepdotai_front_js_enqueue_style');
+add_action('wp_enqueue_scripts', 'veepdotai_front_js_enqueue_script');
 
 add_action('wp_ajax_save_featured_image', 'save_featured_image_callback');
 add_action('wp_ajax_save_article_inline', 'save_article_inline_callback');
