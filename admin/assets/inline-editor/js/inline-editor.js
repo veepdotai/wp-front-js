@@ -22,6 +22,7 @@ const InlineEditor = {
 		$("#inline-editor-validation").click(function(){
 			let content = $(".wp-block-post-content").html();
 			content = InlineEditor.extractFirstDiv(content);
+			$(this).html(`<i class="fa fa-circle-o-notch fa-spin"></i> Recherche`);
 			$(this).attr('disabled', true);
 			$("#inline-editor-annulation").attr('disabled', true);
 			$("." + INLINE_EDITOR_CLASS).attr("contenteditable", false);
