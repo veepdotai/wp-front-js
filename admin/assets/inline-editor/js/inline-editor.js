@@ -21,7 +21,7 @@ const InlineEditor = {
 
 		$("#inline-editor-validation").click(function(){
 			let content = $(".wp-block-post-content").html();
-			content = InlineEditor.extractFirstDiv(content);
+			content = InlineEditor.extractPluginDiv(content, "addtoany");
 			$(this).html(`<i class="fa fa-circle-o-notch fa-spin"></i> Validation ...`);
 			$(this).attr('disabled', true);
 			$("#inline-editor-annulation").attr('disabled', true);
@@ -49,18 +49,37 @@ const InlineEditor = {
 	},
 
 	lastIndexOfFirstDiv: function(str) {
-		let index = str.indexOf("</div>");
-		let n;
-		if (index >= 0){
-			n = Array.from(str.slice(0, index).matchAll("<div")).length;
-			index = InlineEditor.nIndexOf(str, "</div>", n) + 6;
+		let firstEnd = str.indexOf("</div>");
+		let n = Array.from(str.slice(0, firstEnd).matchAll("<div")).length;
+		let lastEnd = InlineEditor.nIndexOf(str, "</div>", n);
+		let m = Array.from(str.slice(firstEnd, lastEnd).matchAll("<div")).length;
+		
+		while (m > 0) {
+			n += m;
+			firstEnd = lastEnd;
+			lastEnd = InlineEditor.nIndexOf(str, "</div>", n);
+			m = Array.from(str.slice(firstEnd, lastEnd).matchAll("<div")).length;
 		}
-		return index;
+	
+		return lastEnd + 6;
 	},
 
-	extractFirstDiv: function(str) {
-		let index = InlineEditor.lastIndexOfFirstDiv(str);
-		return str.slice(index).trim();
+	/**
+	 * This function return the html string without the plugin's div. If there is no plugin's div, it will return the original html string.
+	 * @param {string} html
+	 * @param {string} pluginClass 
+	 * @returns 
+	 */
+	extractPluginDiv: function(html, pluginClass) {
+		const index = InlineEditor.lastIndexOfFirstDiv(html);
+		const firstDiv = html.slice(0, InlineEditor.lastIndexOfFirstDiv(html));
+		let result = html; 
+		
+		if(firstDiv.includes(pluginClass)){
+			result = html.slice(index).trim();
+		}
+
+		return result;
 	},
 
 	widget: function(){
