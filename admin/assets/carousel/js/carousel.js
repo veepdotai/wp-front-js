@@ -121,7 +121,7 @@ const VeepdotaiCarousel = {
                             <label for="api-both">Both</label><br>
                         </div>
 
-                        <p id='form-error'>Des mots clés sont nécessaires pour la recherche</p>
+                        <p id='form-error'></p>
 
                         <button type="submit" class="carousel-btn color-pr max-size"></button>
                     </form>
@@ -197,8 +197,9 @@ const VeepdotaiCarousel = {
                     api = radios[i].value;
                 }
             }
-            if (query === "" || api === "") {
-                $("#form-error").show();
+            if (query === "") {
+                $("#form-error").text("Des mots clés sont nécessaires pour la recherche");
+                $("#form-error").show("slow");
 
             }else {
                 $("form button").attr("disabled", true);
@@ -221,7 +222,6 @@ const VeepdotaiCarousel = {
                             json = staticJson;
                             break;
                     }
-                    $.modal.close();
                     VeepdotaiCarousel.processJson(json);
                 
                 }else {
@@ -240,27 +240,37 @@ const VeepdotaiCarousel = {
 
         //$("#debug").text(json);
         let photos = VeepdotaiCarousel.extractImages(json);
-        VeepdotaiCarousel.initSplide(photos, photos.length);
 
-        $("#annulation").click(function(){
-            $(".widget .splide").remove();
-            $(".widget img:first").show();
-            VeepdotaiCarousel.stopUnloadListeners();
-        });
+        if (photos.length == 0) {
+            $("#form-error").text("La requête aux banques d'images a échouée");
+            $("#form-error").show("slow");
 
-        $("#validation").click(function(){
-            let url = $(".is-active").children("img").attr("src");
-            let query = document.getElementById("query").value;
-            $(".widget img:first").attr("src",url);
-            $(".widget img:first").attr("srcset", url + " 2048w");
-            $(".widget img:first").attr("alt", query);
-            $(".widget .splide").remove();
-            $(".widget img:first").show();
+            $("form button").text("Lancer recherche");
+            $("form button").attr("disabled", false);
+        }else {
+            $.modal.close();
+            VeepdotaiCarousel.initSplide(photos, photos.length);
 
-            let postId = VeepdotaiCarousel.getPostId();
+            $("#annulation").click(function(){
+                $(".widget .splide").remove();
+                $(".widget img:first").show();
+                VeepdotaiCarousel.stopUnloadListeners();
+            });
 
-            ajax_save_featured_image(url, query, postId);
-        });
+            $("#validation").click(function(){
+                let url = $(".is-active").children("img").attr("src");
+                let query = document.getElementById("query").value;
+                $(".widget img:first").attr("src",url);
+                $(".widget img:first").attr("srcset", url + " 2048w");
+                $(".widget img:first").attr("alt", query);
+                $(".widget .splide").remove();
+                $(".widget img:first").show();
+
+                let postId = VeepdotaiCarousel.getPostId();
+
+                ajax_save_featured_image(url, query, postId);
+            });
+        }
     },
 
     getPostId: function(){
@@ -386,7 +396,6 @@ function ajax_get_json_api(query, api){
             type: 'POST',
             success: function ( response ) {
                 //console.log( "reponse: " + response );
-                $.modal.close();
                 VeepdotaiCarousel.processJson(response);
             }
         }
