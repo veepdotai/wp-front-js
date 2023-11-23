@@ -121,7 +121,7 @@ const VeepdotaiCarousel = {
                             <label for="api-both">Both</label><br>
                         </div>
 
-                        <p id='form-error'>Des mots clés sont nécessaires pour la recherche</p>
+                        <p id='form-error'></p>
 
                         <button type="submit" class="carousel-btn color-pr max-size"></button>
                     </form>
@@ -197,8 +197,9 @@ const VeepdotaiCarousel = {
                     api = radios[i].value;
                 }
             }
-            if (query === "" || api === "") {
-                $("#form-error").show();
+            if (query === "") {
+                $("#form-error").text("Des mots clés sont nécessaires pour la recherche");
+                $("#form-error").show("slow");
 
             }else {
                 $("form button").attr("disabled", true);
@@ -221,7 +222,6 @@ const VeepdotaiCarousel = {
                             json = staticJson;
                             break;
                     }
-                    $.modal.close();
                     VeepdotaiCarousel.processJson(json);
                 
                 }else {
@@ -240,6 +240,7 @@ const VeepdotaiCarousel = {
 
         //$("#debug").text(json);
         let photos = VeepdotaiCarousel.extractImages(json);
+            $.modal.close();
         VeepdotaiCarousel.initSplide(photos, photos.length);
 
         $("#annulation").click(function(){
@@ -386,7 +387,6 @@ function ajax_get_json_api(query, api){
             type: 'POST',
             success: function ( response ) {
                 //console.log( "reponse: " + response );
-                $.modal.close();
                 VeepdotaiCarousel.processJson(response);
             }
         }
