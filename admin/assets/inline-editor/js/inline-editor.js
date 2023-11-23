@@ -83,6 +83,19 @@ const InlineEditor = {
 		return result;
 	},
 
+	getPostId: function(){
+        let str = $("body").attr("class");
+        let num = str.search("postid-");
+        
+        str = str.slice(num+7);
+        num = str.search(" ");
+        
+        str = str.slice(0, num);
+        num = parseInt(str);
+
+        return num;
+    },
+
 	widget: function(){
 		InlineEditor.inlineEditorInit();
 
@@ -90,7 +103,7 @@ const InlineEditor = {
 			if (!InlineEditor.editMode){
 				InlineEditor.initUnloadListeners();
 				InlineEditor.editMode = true;
-				const postId = VeepdotaiCarousel.getPostId();
+				const postId = InlineEditor.getPostId();
 				InlineEditor.createEditorBtns(postId);
 			}
 		});
