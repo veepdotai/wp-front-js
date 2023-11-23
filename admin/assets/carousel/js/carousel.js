@@ -179,6 +179,8 @@ const VeepdotaiCarousel = {
 
     initForm: function(){
         $("#carousel-form").submit(function(event){
+            VeepdotaiCarousel.initUnloadListeners();
+
             event.preventDefault();
     
             $(".widget .splide").remove();
@@ -234,6 +236,7 @@ const VeepdotaiCarousel = {
         $("#annulation").click(function(){
             $(".widget .splide").remove();
             $(".widget img:first").show();
+            VeepdotaiCarousel.stopUnloadListeners();
         });
 
         $("#validation").click(function(){
@@ -274,6 +277,21 @@ const VeepdotaiCarousel = {
         ;
         return modal;
     },
+
+    initUnloadListeners: function() {
+        window.addEventListener('beforeunload', this.handleUnloadEvents);
+        window.addEventListener('pagehide', this.handleUnloadEvents);
+    },
+
+	handleUnloadEvents: function(e) {
+		window.prompt("Are you really sure you want to quit the application?");
+        e.preventDefault();
+	},
+
+	stopUnloadListeners: function() {
+		window.removeEventListener('beforeunload', this.handleUnloadEvents);
+		window.removeEventListener('pagehide', this.handleUnloadEvents);
+	},
 
     widget: function(){
         this.initWidget();
@@ -327,6 +345,7 @@ function ajax_save_featured_image(src, alt, postId){
             contentType: false,
             type: 'POST',
             success: function ( response ) {
+                VeepdotaiCarousel.stopUnloadListeners();
                 $.modal.close();
 
                 /*console.log(response);
