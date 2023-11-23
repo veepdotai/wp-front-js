@@ -32,6 +32,7 @@ const InlineEditor = {
 			$(this).attr('disabled', true);
 			$("#inline-editor-validation").attr('disabled', true);
 			$("." + INLINE_EDITOR_CLASS).attr("contenteditable", false);
+			InlineEditor.stopUnloadListeners();
 			location.reload();
 		});
 	},
@@ -87,11 +88,27 @@ const InlineEditor = {
 
 		$("." + INLINE_EDITOR_CLASS).focus(function(){
 			if (!InlineEditor.editMode){
+				InlineEditor.initUnloadListeners();
 				InlineEditor.editMode = true;
 				const postId = VeepdotaiCarousel.getPostId();
 				InlineEditor.createEditorBtns(postId);
 			}
 		});
+	},
+
+	initUnloadListeners: function() {
+        window.addEventListener('beforeunload', this.handleUnloadEvents);
+        window.addEventListener('pagehide', this.handleUnloadEvents);
+    },
+
+	handleUnloadEvents: function(e) {
+		window.prompt("Are you really sure you want to quit the application?");
+        e.preventDefault();
+	},
+
+	stopUnloadListeners: function() {
+		window.removeEventListener('beforeunload', this.handleUnloadEvents);
+		window.removeEventListener('pagehide', this.handleUnloadEvents);
 	}
 }
 
@@ -120,6 +137,7 @@ function ajax_save_article_inline( content , postId ) {
 			contentType: false,
 			type: 'POST',
 			success: function( response ) {
+				InlineEditor.stopUnloadListeners();
 				location.reload();
 			}
 		}
