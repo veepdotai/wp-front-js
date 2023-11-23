@@ -240,28 +240,37 @@ const VeepdotaiCarousel = {
 
         //$("#debug").text(json);
         let photos = VeepdotaiCarousel.extractImages(json);
+
+        if (photos.length == 0) {
+            $("#form-error").text("La requête aux banques d'images a échouée");
+            $("#form-error").show("slow");
+
+            $("form button").text("Lancer recherche");
+            $("form button").attr("disabled", false);
+        }else {
             $.modal.close();
-        VeepdotaiCarousel.initSplide(photos, photos.length);
+            VeepdotaiCarousel.initSplide(photos, photos.length);
 
-        $("#annulation").click(function(){
-            $(".widget .splide").remove();
-            $(".widget img:first").show();
-            VeepdotaiCarousel.stopUnloadListeners();
-        });
+            $("#annulation").click(function(){
+                $(".widget .splide").remove();
+                $(".widget img:first").show();
+                VeepdotaiCarousel.stopUnloadListeners();
+            });
 
-        $("#validation").click(function(){
-            let url = $(".is-active").children("img").attr("src");
-            let query = document.getElementById("query").value;
-            $(".widget img:first").attr("src",url);
-            $(".widget img:first").attr("srcset", url + " 2048w");
-            $(".widget img:first").attr("alt", query);
-            $(".widget .splide").remove();
-            $(".widget img:first").show();
+            $("#validation").click(function(){
+                let url = $(".is-active").children("img").attr("src");
+                let query = document.getElementById("query").value;
+                $(".widget img:first").attr("src",url);
+                $(".widget img:first").attr("srcset", url + " 2048w");
+                $(".widget img:first").attr("alt", query);
+                $(".widget .splide").remove();
+                $(".widget img:first").show();
 
-            let postId = VeepdotaiCarousel.getPostId();
+                let postId = VeepdotaiCarousel.getPostId();
 
-            ajax_save_featured_image(url, query, postId);
-        });
+                ajax_save_featured_image(url, query, postId);
+            });
+        }
     },
 
     getPostId: function(){
