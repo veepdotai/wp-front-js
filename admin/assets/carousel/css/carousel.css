@@ -92,3 +92,9 @@
 #loading-modal {
     text-align: center;
 }
+
+#form-error {
+    color:red;
+    font-weight: bold;
+    display: none;
+}

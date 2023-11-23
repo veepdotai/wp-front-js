@@ -110,7 +110,7 @@ const VeepdotaiCarousel = {
                 <div class="modal-body">
                     <form id="carousel-form" method="post">
                         
-                        <input id="query" type="text" name="recherche" class="max-size form-text" value="${defaultQuery}">
+                        <input id="query" type="text" name="recherche" class="max-size form-text" value="${defaultQuery} placeholder="Mots clés ...">
                         
                         <div class="form-radios">
                             <input id="api-pex" type="radio" name="api" value="pexels">
@@ -120,6 +120,9 @@ const VeepdotaiCarousel = {
                             <input id="api-both" type="radio" name="api" value="both" checked>
                             <label for="api-both">Both</label><br>
                         </div>
+
+                        <p id='form-error'>Des mots clés sont nécessaires pour la recherche</p>
+
                         <button type="submit" class="carousel-btn color-pr max-size"></button>
                     </form>
                 <div>
@@ -172,6 +175,8 @@ const VeepdotaiCarousel = {
                 showClose: false
             });
 
+            $("#form-error").hide();
+
             $("form button").html("Lancer recherche");
             $("form button").attr("disabled", false);
         });
@@ -179,14 +184,9 @@ const VeepdotaiCarousel = {
 
     initForm: function(){
         $("#carousel-form").submit(function(event){
-            VeepdotaiCarousel.initUnloadListeners();
-
             event.preventDefault();
     
             $(".widget .splide").remove();
-    
-            $("form button").attr("disabled", true);
-            $("form button").html(`<i class="fa fa-circle-o-notch fa-spin"></i> Recherche`);
     
             const query = document.getElementById("query").value;
             
@@ -197,28 +197,37 @@ const VeepdotaiCarousel = {
                     api = radios[i].value;
                 }
             }
+            if (query === "" || api === "") {
+                $("#form-error").show();
 
-            if (staticMode) {
-                //$("#debug").text("STATIC MODE - request: Paysage");
-                console.log("STATIC MODE - request: Paysage");
-                
-                let json;
-                switch(api){
-                    case "pexels":
-                        json = staticJsonPexels;
-                        break;
-                    case "unsplash":
-                        json = staticJsonUnsplash;
-                        break;
-                    case "both":
-                        json = staticJson;
-                        break;
-                }
-                $.modal.close();
-                VeepdotaiCarousel.processJson(json);
-            
             }else {
-                ajax_get_json_api(query, api);
+                $("form button").attr("disabled", true);
+                $("form button").html(`<i class="fa fa-circle-o-notch fa-spin"></i> Recherche`);
+                VeepdotaiCarousel.initUnloadListeners();
+
+                if (staticMode) {
+                    //$("#debug").text("STATIC MODE - request: Paysage");
+                    console.log("STATIC MODE - request: Paysage");
+                    
+                    let json;
+                    switch(api){
+                        case "pexels":
+                            json = staticJsonPexels;
+                            break;
+                        case "unsplash":
+                            json = staticJsonUnsplash;
+                            break;
+                        case "both":
+                            json = staticJson;
+                            break;
+                    }
+                    $.modal.close();
+                    VeepdotaiCarousel.processJson(json);
+                
+                }else {
+                    $("#form-error").hide();
+                    ajax_get_json_api(query, api);
+                }
             }
         });
     },
