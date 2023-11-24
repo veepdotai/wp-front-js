@@ -1,5 +1,6 @@
-// This constant define which class will be "editable" ("veep_para by default")
-const INLINE_EDITOR_CLASS = "veep_para";
+const INLINE_EDITOR_CLASS = "veep_para"; // This constant define which class will be "editable" ("veep_para by default")
+
+const DATA_ATTR = "veep-id"; // html attribute used to distinguish elements from each others
 
 const InlineEditor = {
 
@@ -137,7 +138,7 @@ const InlineEditor = {
 				InlineEditor.createEditorBtns();
 			}
 			
-			const id = $(this).attr("id");
+			const id = $(this).attr("data-" + DATA_ATTR);
 			const currentContent = $(this).html;
 
 			InlineEditor.clickedPara.push({id: id, content: currentContent});			
