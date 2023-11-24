@@ -102,11 +102,14 @@ function save_featured_image_callback()
 
 function save_article_inline_callback()
 {
-    $modifications = json_decode($_POST['modifications']);
+    $modifications = $_POST['modifications'];
+    $modifications = str_replace('\"', '"', $modifications);
+    $modifications = json_decode($modifications);
+
     $postId = $_POST['postId'];
 
     $postHtml = get_post($postId)->post_content;
-
+    
     for ($i = 0; $i < count($modifications); $i++){
         $id = $modifications[$i]->id;
         $newContent = $modifications[$i]->content;
@@ -121,14 +124,14 @@ function save_article_inline_callback()
     
         $postHtml = $start . $newContent . $end;
     }
-
+    
     $postarr = array(
         'ID'            => $postId,
         'post_content'  => $postHtml
     );
 
     $response = wp_update_post($postarr);
-
+   
     echo $response;
     die;
 }
