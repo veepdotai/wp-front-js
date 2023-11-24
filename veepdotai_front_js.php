@@ -18,8 +18,13 @@ use ImgFinder\Repository\PexelsRepository;
 use ImgFinder\Repository\UnsplashRepository;
 
 // Don't forget to replace by your api's key
-define('PEXELS_API_KEY', 'MY_OWN_PERSONAL_PEXELS_KEY'); // value to change
-define('UNSPLASH_API_KEY', 'MY_OWN_PERSONAL_UNSPLASH_KEY'); // value to change
+if(!defined('PEXELS_API_KEY')){
+    define('PEXELS_API_KEY', 'MY_OWN_PERSONAL_PEXELS_KEY'); // value to change
+}
+
+if(!defined('UNSPLASH_API_KEY')){
+    define('UNSPLASH_API_KEY', 'MY_OWN_PERSONAL_UNSPLASH_KEY'); // value to change
+}
 
 define('VEEPDOTAI_FRONT_JS_VERSION', '1.0.0');
 define('VEEPDOTAI_FRONT_JS_PLUGIN_VERSION', '1.0.0');
