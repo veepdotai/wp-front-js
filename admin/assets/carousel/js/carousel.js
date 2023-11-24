@@ -203,7 +203,7 @@ const VeepdotaiCarousel = {
 
             }else {
                 $("form button").attr("disabled", true);
-                $("form button").html(`<i class="fa fa-circle-o-notch fa-spin"></i> Recherche`);
+                $("form button").html(`<span class="loader"></span> Recherche`);
                 VeepdotaiCarousel.initUnloadListeners();
 
                 if (staticMode) {

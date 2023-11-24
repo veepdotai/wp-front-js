@@ -26,7 +26,7 @@ const InlineEditor = {
 
 			let modifications = InlineEditor.clickedPara.filter(InlineEditor.filterModifiedPara);
 			
-			$(this).html(`<i class="fa fa-circle-o-notch fa-spin"></i> Validation ...`);
+			$(this).html(`<span class="loader"></span> Validation ...`);
 			$(this).attr('disabled', true);
 			$("#inline-editor-annulation").attr('disabled', true);
 			$("." + INLINE_EDITOR_CLASS).attr("contenteditable", false);
@@ -172,7 +172,6 @@ function ajax_save_article_inline(modifications, postId) {
 			contentType: false,
 			type: 'POST',
 			success: function (response) {
-				console.log(response);
 				InlineEditor.stopUnloadListeners();
 				location.reload();
 			}
