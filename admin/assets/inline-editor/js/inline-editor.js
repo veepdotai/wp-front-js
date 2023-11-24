@@ -121,7 +121,7 @@ const InlineEditor = {
 	},
 
 	filterModifiedPara: function (value) {
-		const newContent = $("#" + value.id).html();
+		const newContent = $("p[data-" + DATA_ATTR + "=" + value.id + "]").html();
 		let result = newContent != value.content;
 		value.content = newContent;
 		return result;
@@ -147,6 +147,7 @@ const InlineEditor = {
 }
 
 $(document).ready(function () {
+	
 	if ($("body").attr("class").includes("logged-in")) {
 		InlineEditor.widget();
 	} else {
