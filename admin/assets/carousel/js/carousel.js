@@ -242,7 +242,7 @@ const VeepdotaiCarousel = {
         let photos = VeepdotaiCarousel.extractImages(json);
 
         if (photos.length == 0) {
-            $("#form-error").text("La requête aux banques d'images a échouée");
+            $("#form-error").text("La requête aux banques d'images a échoué");
             $("#form-error").show("slow");
 
             $("form button").text("Lancer recherche");
