@@ -35,18 +35,18 @@ if (!defined('WPINC')) {
 
 function veepdotai_front_js_enqueue_style()
 {
-    wp_enqueue_style('cdn-css-jquery.modal', 'https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css', false);
-    wp_enqueue_style('splidejs-css-splide-4.1.4', 'https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css', false);
+    wp_enqueue_style('veepdotai-front-css-jquery.modal', plugins_url('/veepdotai_front_js/admin/assets/carousel/css/jquery.modal.min.css'), false);
+    wp_enqueue_style('veepdotai-front-css-splide-4.1.4', plugins_url('/veepdotai_front_js/admin/assets/carousel/css/splide.min.css'), false);
     wp_enqueue_style('my-veepdotai-front-css-carousel', plugins_url('/veepdotai_front_js/admin/assets/carousel/css/carousel.css'), false);
     wp_enqueue_style('my-veepdotai-front-css-inline-editor', plugins_url('/veepdotai_front_js/admin/assets/inline-editor/css/inline-editor.css'), false);
-    wp_enqueue_style('cdn-css-font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css', false);
+    wp_enqueue_style('my-veepdotai-front-css-common', plugins_url('/veepdotai_front_js/admin/assets/common/css/common.css'), false);
 }
 
 function veepdotai_front_js_enqueue_script()
 {
-    wp_enqueue_script('cdn-splidejs-js-splide-4.1.4', 'https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js', true);
-    wp_enqueue_script('my-veepdotai-front-js-jquery-3.7.1', plugins_url('/veepdotai_front_js/admin/assets/carousel/js/jquery-3.7.1.js'), true);
-    wp_enqueue_script('cdn-js-jquery.modal', 'https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js', true);
+    wp_enqueue_script('veepdotai-front-js-splide-4.1.4', plugins_url('/veepdotai_front_js/admin/assets/carousel/js/splide.min.js'), true);
+    wp_enqueue_script('veepdotai-front-js-jquery-3.7.1', plugins_url('/veepdotai_front_js/admin/assets/common/js/jquery-3.7.1.js'), true);
+    wp_enqueue_script('veepdotai-front-js-jquery.modal', plugins_url('/veepdotai_front_js/admin/assets/carousel/js/jquery.modal.min.js'), true);
 
     wp_enqueue_script('my-veepdotai-front-js-loader', plugins_url('/veepdotai_front_js/admin/assets/carousel/js/loader.js'), true);
     wp_enqueue_script('my-veepdotai-front-js-carousel', plugins_url('/veepdotai_front_js/admin/assets/carousel/js/carousel.js'), true);
